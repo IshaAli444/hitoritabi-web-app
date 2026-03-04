@@ -58,9 +58,6 @@ Writers Page:
 
 ---
 
-##  Project Structure
-
-
 ##  What I Learned
 
 - Full project lifecycle from design to deployment
