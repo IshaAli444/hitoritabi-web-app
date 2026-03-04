@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitoritabi | Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink: #d2b48c; /* golden ink accent */
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+
+    body { 
+      font-family: 'Cormorant Garamond', serif; 
+      background: var(--bg); 
+      color: #f5f5f5; 
+      min-height: 100vh;
+    }
+
+    /* Subtle grain overlay */
+    body::before{
+      content:"";
+      position:fixed; 
+      inset:0;
+      background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);
+      background-size: 3px 3px;
+      pointer-events:none; 
+      z-index:0;
+      mix-blend-mode: overlay; 
+      opacity: .3;
+    }
+
+    /* Golden underline on links */
+    .ink-underline { 
+      position:relative; 
+      display:inline-block; 
+    }
+    .ink-underline::after{
+      content:""; 
+      position:absolute; 
+      left:0; 
+      bottom:-3px; 
+      height:2px; 
+      width:0;
+      background: linear-gradient(90deg, rgba(210,180,140,1), rgba(210,180,140,0.6));
+      transition: width .28s ease;
+    }
+    .ink-underline:hover::after{ width:100%; }
+
+    /* Form styling */
+    .form-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px rgba(210, 180, 140, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Password strength indicator */
+    .password-strength {
+      height: 4px;
+      border-radius: 2px;
+      margin-top: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .strength-0 { width: 25%; background: #ef4444; }
+    .strength-1 { width: 50%; background: #f97316; }
+    .strength-2 { width: 75%; background: #eab308; }
+    .strength-3 { width: 100%; background: #22c55e; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--ink) 0%, #b89464 100%);
+      color: #1f1f1f;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(210, 180, 140, 0.2);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* Message styles */
+    .message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .message.success {
+      background: rgba(46, 125, 50, 0.1);
+      border: 1px solid rgba(46, 125, 50, 0.3);
+      color: #81c784;
+      display: block;
+    }
+
+    .message.error {
+      background: rgba(211, 47, 47, 0.1);
+      border: 1px solid rgba(211, 47, 47, 0.3);
+      color: #e57373;
+      display: block;
+    }
+
+    .message.info {
+      background: rgba(30, 136, 229, 0.1);
+      border: 1px solid rgba(30, 136, 229, 0.3);
+      color: #64b5f6;
+      display: block;
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--ink);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Pattern overlay */
+    .pattern-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d2b48c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Terms checkbox */
+    .terms-label {
+      display: flex;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+
+    .terms-checkbox {
+      margin-top: 4px;
+      margin-right: 12px;
+      min-width: 16px;
+    }
+
+    /* Password requirements */
+    .requirement {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .requirement.valid {
+      color: #22c55e;
+    }
+
+    .requirement.invalid {
+      color: #ef4444;
+    }
+
+    .requirement-icon {
+      margin-right: 8px;
+      font-size: 12px;
+    }
+
+    /* Back to sign in button */
+    .back-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .back-btn:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .signup-card {
+        padding: 24px;
+      }
+      
+      .form-input {
+        padding: 10px 14px;
+        font-size: 15px;
+      }
+      
+      .btn-primary, .btn-secondary {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased relative">
+
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-50 shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <!-- LOGO -->
+      <a href="HomePage.html" class="flex items-center gap-2">
+        <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+        <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+      </a>
+
+      <!-- Back to Home -->
+      <a href="HomePage.html" class="text-[--muted] hover:text-[--ink] ink-underline hidden sm:inline">
+        ← Back Home
+      </a>
+      <a href="HomePage.html" class="text-[--muted] hover:text-[--ink] sm:hidden">
+        ← Home
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="relative z-10">
+    <!-- Hero Section -->
+    <section class="py-12 md:py-16 text-center border-b border-[--edge]"
+             style="background: radial-gradient(circle at center, #2d2d2d 0%, #1e1e1e 60%, #151515 100%);">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-4xl md:text-5xl mb-4" style="color:var(--ink); font-family:'Playfair Display', serif;">Begin Your Journey</h2>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Join fellow wanderers in leaving notes on benches made of pixels and passing evenings.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sign Up Form Section -->
+    <section class="py-12 md:py-20">
+      <div class="max-w-md mx-auto px-6">
+        <!-- Decorative card -->
+        <div class="relative">
+          <!-- Corner accents -->
+          <div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-[--ink] opacity-50"></div>
+          <div class="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-[--ink] opacity-50"></div>
+          <div class="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-[--ink] opacity-50"></div>
+          <div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-[--ink] opacity-50"></div>
+
+          <div class="bg-[--panel] border border-[--edge] rounded-lg p-8 md:p-10 shadow-2xl relative overflow-hidden">
+            <!-- Pattern overlay -->
+            <div class="pattern-overlay"></div>
+
+            <h3 class="text-2xl md:text-3xl mb-2 text-center" style="color:var(--ink)">Create Account</h3>
+            <p class="text-[--muted] text-center mb-8">Join the quiet atlas of words</p>
+
+            <!-- Messages -->
+            <div id="message" class="message"></div>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm" class="space-y-6">
+              <!-- Username -->
+              <div>
+                <label for="username" class="block text-[--muted] mb-2">Username</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username"
+                  class="form-input"
+                  placeholder="wanderer"
+                  required
+                  minlength="3"
+                  maxlength="30"
+                >
+                <div class="text-sm text-[--muted] mt-1">This will be your public display name</div>
+                <div class="text-sm text-red-400 mt-1" id="usernameError"></div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-[--muted] mb-2">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email"
+                  class="form-input"
+                  placeholder="wanderer@example.com"
+                  required
+                >
+                <div class="text-sm text-red-400 mt-1" id="emailError"></div>
+              </div>
+
+              <!-- Password -->
+              <div>
+                <label for="password" class="block text-[--muted] mb-2">Password</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password"
+                  class="form-input"
+                  placeholder="••••••••"
+                  required
+                  minlength="6"
+                >
+                <!-- Password strength bar -->
+                <div class="password-strength strength-0" id="passwordStrength"></div>
+                
+                <!-- Password requirements -->
+                <div class="mt-4 space-y-2">
+                  <p class="text-sm text-[--muted] mb-2">Password must contain:</p>
+                  <div class="requirement invalid" id="reqLength">
+                    <span class="requirement-icon">○</span>
+                    <span>At least 6 characters</span>
+                  </div>
+                  <div class="requirement invalid" id="reqLower">
+                    <span class="requirement-icon">○</span>
+                    <span>One lowercase letter</span>
+                  </div>
+                  <div class="requirement invalid" id="reqUpper">
+                    <span class="requirement-icon">○</span>
+                    <span>One uppercase letter</span>
+                  </div>
+                  <div class="requirement invalid" id="reqNumber">
+                    <span class="requirement-icon">○</span>
+                    <span>One number</span>
+                  </div>
+                </div>
+                
+                <div class="text-sm text-red-400 mt-1" id="passwordError"></div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div>
+                <label for="confirmPassword" class="block text-[--muted] mb-2">Confirm Password</label>
+                <input 
+                  type="password" 
+                  id="confirmPassword" 
+                  name="confirmPassword"
+                  class="form-input"
+                  placeholder="••••••••"
+                  required
+                >
+                <div class="text-sm text-red-400 mt-1" id="confirmPasswordError"></div>
+              </div>
+
+              <!-- Terms and Conditions -->
+              <div>
+                <label class="terms-label">
+                  <input 
+                    type="checkbox" 
+                    id="terms" 
+                    name="terms"
+                    class="terms-checkbox w-4 h-4 bg-[--edge] border-[--edge] rounded focus:ring-[--ink] focus:ring-2"
+                    required
+                  >
+                  <span class="text-[--muted] text-sm">
+                    I agree to the 
+                    <a href="#" class="text-[--ink] hover:underline">Terms of Service</a> 
+                    and 
+                    <a href="#" class="text-[--ink] hover:underline">Privacy Policy</a>
+                  </span>
+                </label>
+                <div class="text-sm text-red-400 mt-1" id="termsError"></div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn-primary" id="submitBtn" disabled>
+                <span id="buttonText">Create Account</span>
+                <span id="loadingSpinner" class="hidden">
+                  <span class="loading"></span> Creating account...
+                </span>
+              </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="flex items-center my-8">
+              <div class="flex-1 h-px bg-[--edge]"></div>
+              <span class="px-4 text-[--muted] text-sm">or continue with</span>
+              <div class="flex-1 h-px bg-[--edge]"></div>
+            </div>
+
+            <!-- Social Sign Up -->
+            <div class="space-y-3">
+              <button type="button" class="btn-secondary flex items-center justify-center">
+                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+                </svg>
+                Sign up with Google
+              </button>
+            </div>
+
+            <!-- Already have account link -->
+            <div class="text-center mt-8 pt-6 border-t border-[--edge]">
+              <p class="text-[--muted]">
+                Already have an account? 
+                <a href="LoginPage.html" class="text-[--ink] font-semibold hover:underline ml-1">
+                  Sign in here
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to sign in button -->
+        <div class="text-center mt-6">
+          <button onclick="window.location.href='LoginPage.html'" class="back-btn mx-auto">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Sign In
+          </button>
+        </div>
+
+        <!-- Guest access note -->
+        <div class="text-center mt-6">
+          <p class="text-[--muted] text-sm">
+            Or explore as a guest — 
+            <a href="HomePage.html" class="text-[--ink] hover:underline">continue without signing up</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section class="py-12 md:py-16 bg-[#1a1a1a] border-t border-[--edge]">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center">
+          <h4 class="text-2xl mb-6" style="color:var(--ink)">Words from Wanderers</h4>
+          <div class="relative h-32 overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <blockquote class="text-lg md:text-xl italic text-[--muted] max-w-2xl mx-auto fade-quote" id="quote1">
+                "The best letters are the ones you never send; they still teach you how to say goodbye."
+              </blockquote>
+              <blockquote class="text-lg md:text-xl italic text-[--muted] max-w-2xl mx-auto fade-quote hidden" id="quote2">
+                "Even joy, when held too tightly, begins to echo like grief."
+              </blockquote>
+              <blockquote class="text-lg md:text-xl italic text-[--muted] max-w-2xl mx-auto fade-quote hidden" id="quote3">
+                "Letting go; where love and loss collide."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[--edge] text-[--muted] py-8 md:py-12 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto text-center px-6">
+      <p class="text-sm">
+        © 2025 Hitoritabi — wandering continues between pages.
+      </p>
+      <div class="mt-4 space-x-4 md:space-x-6 text-sm">
+        <a href="HomePage.html" class="hover:text-[--ink]">Home</a>
+        <a href="AboutPage.html" class="hover:text-[--ink]">About</a>
+        <a href="#" class="hover:text-[--ink]">Privacy</a>
+        <a href="#" class="hover:text-[--ink]">Terms</a>
+        <a href="#" class="hover:text-[--ink]">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+<script>
+    // API Configuration
+    const API_BASE_URL = 'http://localhost:3000/api';
+
+    // Quote rotation
+    let currentQuote = 1;
+    const totalQuotes = 3;
+
+    function rotateQuotes() {
+        document.getElementById(`quote${currentQuote}`).classList.add('hidden');
+        currentQuote = currentQuote % totalQuotes + 1;
+        document.getElementById(`quote${currentQuote}`).classList.remove('hidden');
+    }
+
+    // Rotate quotes every 5 seconds
+    setInterval(rotateQuotes, 3000);
+
+    // Password strength checker
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        
+        // Length check
+        if (password.length >= 6) strength++;
+        if (password.length >= 8) strength++;
+        
+        // Character type checks
+        if (/[a-z]/.test(password)) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
+        
+        // Cap at 3 for our UI
+        return Math.min(strength, 3);
+    }
+
+    // Update password requirements display
+    function updatePasswordRequirements(password) {
+        // Check each requirement
+        const hasLength = password.length >= 6;
+        const hasLower = /[a-z]/.test(password);
+        const hasUpper = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        
+        // Update requirement indicators
+        document.getElementById('reqLength').className = hasLength ? 'requirement valid' : 'requirement invalid';
+        document.getElementById('reqLower').className = hasLower ? 'requirement valid' : 'requirement invalid';
+        document.getElementById('reqUpper').className = hasUpper ? 'requirement valid' : 'requirement invalid';
+        document.getElementById('reqNumber').className = hasNumber ? 'requirement valid' : 'requirement invalid';
+        
+        // Update strength bar
+        const strength = checkPasswordStrength(password);
+        const strengthBar = document.getElementById('passwordStrength');
+        strengthBar.className = `password-strength strength-${strength}`;
+        
+        // Enable/disable submit button based on all requirements
+        const allValid = hasLength && hasLower && hasUpper && hasNumber;
+        const confirmMatch = document.getElementById('confirmPassword').value === password;
+        const termsChecked = document.getElementById('terms').checked;
+        
+        document.getElementById('submitBtn').disabled = !(allValid && confirmMatch && termsChecked);
+        
+        return allValid;
+    }
+
+    // Form validation
+    function validateForm() {
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const termsChecked = document.getElementById('terms').checked;
+        
+        let isValid = true;
+        
+        // Clear previous errors
+        document.getElementById('usernameError').textContent = '';
+        document.getElementById('emailError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('confirmPasswordError').textContent = '';
+        document.getElementById('termsError').textContent = '';
+        
+        // Validate username
+        if (username.length < 3) {
+            document.getElementById('usernameError').textContent = 'Username must be at least 3 characters';
+            isValid = false;
+        }
+        
+        // Validate email
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email address';
+            isValid = false;
+        }
+        
+        // Validate password
+        const passwordValid = updatePasswordRequirements(password);
+        if (!passwordValid) {
+            document.getElementById('passwordError').textContent = 'Password does not meet requirements';
+            isValid = false;
+        }
+        
+        // Validate password confirmation
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+            isValid = false;
+        }
+        
+        // Validate terms
+        if (!termsChecked) {
+            document.getElementById('termsError').textContent = 'You must agree to the terms and conditions';
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+
+    // Form submission
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!validateForm()) {
+            return;
+        }
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const buttonText = document.getElementById('buttonText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const messageDiv = document.getElementById('message');
+        
+        // Reset message
+        messageDiv.className = 'message';
+        messageDiv.textContent = '';
+        
+        // Show loading
+        buttonText.classList.add('hidden');
+        loadingSpinner.classList.remove('hidden');
+        submitBtn.disabled = true;
+        
+        // Get form data
+        const formData = {
+            username: document.getElementById('username').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value
+        };
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Store token and user data if provided
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                }
+                if (data.user) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+                
+                // Show success message
+                messageDiv.className = 'message success';
+                messageDiv.textContent = data.message || 'Account created successfully! Redirecting...';
+                
+                // Redirect to home page after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'HomePage.html';
+                }, 1500);
+            } else {
+                // Show error message
+                messageDiv.className = 'message error';
+                messageDiv.textContent = data.message || 'Registration failed. Please try again.';
+                
+                // Show field errors if available
+                if (data.errors) {
+                    data.errors.forEach(error => {
+                        if (error.param === 'username') {
+                            document.getElementById('usernameError').textContent = error.msg;
+                        }
+                        if (error.param === 'email') {
+                            document.getElementById('emailError').textContent = error.msg;
+                        }
+                        if (error.param === 'password') {
+                            document.getElementById('passwordError').textContent = error.msg;
+                        }
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            messageDiv.className = 'message error';
+            messageDiv.textContent = 'Network error. Please try again later.';
+        } finally {
+            // Hide loading
+            buttonText.classList.remove('hidden');
+            loadingSpinner.classList.add('hidden');
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Real-time validation
+    document.getElementById('username').addEventListener('input', validateForm);
+    document.getElementById('email').addEventListener('input', validateForm);
+    document.getElementById('password').addEventListener('input', function() {
+        updatePasswordRequirements(this.value);
+        validateForm();
+    });
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        if (this.value !== document.getElementById('password').value) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+        } else {
+            document.getElementById('confirmPasswordError').textContent = '';
+        }
+        validateForm();
+    });
+    document.getElementById('terms').addEventListener('change', validateForm);
+
+    // Google Sign Up (demo)
+    document.querySelector('.btn-secondary').addEventListener('click', function() {
+        const messageDiv = document.getElementById('message');
+        messageDiv.className = 'message error';
+        messageDiv.textContent = 'Google sign up is currently in demo mode. Please use email/password.';
+    });
+
+    // Check if user is already logged in - MODIFIED to prevent automatic redirect
+    window.addEventListener('load', () => {
+        // Clear any existing data to ensure fresh signup
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // Check if there's a user in localStorage (from previous session)
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            // Show info message but don't redirect
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = 'message info';
+            messageDiv.innerHTML = `
+                You appear to have an existing session. 
+                <br>If you want to create a new account, please 
+                <a href="#" onclick="logoutAndClear()" style="color: var(--ink); text-decoration: underline;">clear your session first</a>.
+            `;
+        }
+        
+        // Initial validation
+        validateForm();
+    });
+
+    // Function to logout and clear data
+    function logoutAndClear() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        location.reload();
+    }
+
+    // Add fade animation for quotes
+    const style = document.createElement('style');
+    style.textContent = `
+        .fade-quote {
+            transition: opacity 1s ease-in-out;
+        }
+        .fade-quote.hidden {
+            opacity: 0;
+        }
+        .fade-quote:not(.hidden) {
+            opacity: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .requirement {
+                font-size: 13px;
+            }
+            
+            .terms-label {
+                font-size: 13px;
+            }
+        }
+        
+        /* Style for info message links */
+        .message.info a {
+            color: var(--ink);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        .message.info a:hover {
+            opacity: 0.8;
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+</body>
+</html>

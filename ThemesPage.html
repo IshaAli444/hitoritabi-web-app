@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitoritabi | Themes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #d2b48c;
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #f5f5f5; }
+    
+    .ink-underline { position:relative; display:inline-block; }
+    .ink-underline::after{
+      content:""; position:absolute; left:0; bottom:-3px; height:2px; width:0;
+      background: linear-gradient(90deg, rgba(210,180,140,1), rgba(210,180,140,0.6));
+      transition: width .28s ease;
+    }
+    .ink-underline:hover::after{ width:100%; }
+    
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+    .card-hover:hover{ transform: translateY(-8px) rotate(-0.1deg); box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-color: var(--ink); }
+    
+    .mood-pill { font-size:.72rem; padding:.22rem .6rem; border-radius:999px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.03); }
+    
+    .theme-card { position: relative; overflow: hidden; }
+    .theme-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+
+    <!-- LOGO -->
+    <a href="HomePage.html" class="flex items-center gap-2 mr-auto">
+      <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+      <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+    </a>
+
+    <!-- Right Cluster -->
+    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+      <!-- Nav -->
+      <nav class="flex flex-wrap items-center gap-4 sm:gap-6 text-lg text-[--muted]">
+
+        <a href="HomePage.html" class="hover:text-[--ink] ink-underline">Home</a>
+
+        <!-- Journal Menu -->
+                  <a href="JournalPage.html" class="hover:text-[--ink] ink-underline">Journal</a>
+        
+
+        <!-- Explore Menu -->
+        <div class="relative group">
+          <a href="#" class="inline-block hover:text-[--ink] ink-underline">Explore ▾</a>
+          <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 absolute left-0 mt-2 w-44 bg-[--panel] border border-[--edge]
+                      rounded-lg shadow-lg p-3 z-[99999]">
+            <a href="WritersPage.html" class="block py-2 hover:text-[--ink]">Writers</a>
+            <a href="ThemesPage.html" class="block py-2 hover:text-[--ink]">Themes</a>
+            <a href="AuthorPage.html" class="block py-2 hover:text-[--ink]"></a>
+          </div>
+        </div>
+
+        <a href="AboutPage.html" class="hover:text-[--ink] ink-underline">About</a>
+
+      </nav>
+
+      <!-- Sign In button -->
+      <a href="LoginPage.html"
+         class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+         border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-black">
+         Sign In
+      </a>
+
+    </div>
+  </div>
+</header>
+
+  <!-- THEMES PAGE -->
+  <main class="relative z-10">
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <!-- Page Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-4xl mb-4" style="color:var(--ink); font-family:'Playfair Display', serif;">Themes & Moods</h2>
+        <p class="text-[--muted] max-w-3xl mx-auto text-lg">
+          Navigate through curated collections of writing organized by mood, setting, and feeling. 
+          Each theme is a doorway to a particular atmosphere.
+        </p>
+      </div>
+
+      <!-- Featured Themes -->
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        
+        <a href="#" class="theme-card card-hover bg-[--panel] border border-[--edge] rounded-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="images/mood_rain.jpg" alt="Rain" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+              <h3 class="text-2xl mb-2" style="color:var(--ink)">Rain & Windows</h3>
+              <p class="text-gray-300">Wet glass, blurred reflections, and the rhythm of falling water.</p>
+              <div class="mt-3">
+                <span class="mood-pill">24 pieces</span>
+                <span class="mood-pill ml-2">Melancholic</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="theme-card card-hover bg-[--panel] border border-[--edge] rounded-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="images/mood_stations.jpg" alt="Stations" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+              <h3 class="text-2xl mb-2" style="color:var(--ink)">Journeys & Stations</h3>
+              <p class="text-gray-300">Departures, arrivals, and the spaces in between.</p>
+              <div class="mt-3">
+                <span class="mood-pill">18 pieces</span>
+                <span class="mood-pill ml-2">Wandering</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="theme-card card-hover bg-[--panel] border border-[--edge] rounded-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="images/mood_quiet.jpg" alt="Quiet" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+              <h3 class="text-2xl mb-2" style="color:var(--ink)">Quiet Nights</h3>
+              <p class="text-gray-300">The hush after midnight, solitary thoughts, and desk lamp glow.</p>
+              <div class="mt-3">
+                <span class="mood-pill">32 pieces</span>
+                <span class="mood-pill ml-2">Reflective</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="theme-card card-hover bg-[--panel] border border-[--edge] rounded-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="images/mood_letters.jpg" alt="Letters" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+              <h3 class="text-2xl mb-2" style="color:var(--ink)">Letters Unsent</h3>
+              <p class="text-gray-300">Words written but never sent, addressed to ghosts and memories.</p>
+              <div class="mt-3">
+                <span class="mood-pill">15 pieces</span>
+                <span class="mood-pill ml-2">Intimate</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- All Themes Grid -->
+      <h3 class="text-2xl mb-6" style="color:var(--ink)">All Themes</h3>
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Solitude</h4>
+            <span class="mood-pill">12 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Quiet corners, letters unsent, and the practice of being alone without loneliness.
+          </p>
+          <div class="text-xs text-[--muted]">Slow • Reflective • Personal</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Nostalgia</h4>
+            <span class="mood-pill">14 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Soft recollections that arrive uninvited; the past, knocking like a familiar guest.
+          </p>
+          <div class="text-xs text-[--muted]">Memory • Bittersweet • Past</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Midnight Thoughts</h4>
+            <span class="mood-pill">10 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Half-formed philosophies written under desk lamps and unsteady heartbeats.
+          </p>
+          <div class="text-xs text-[--muted]">Deep • Philosophical • Late</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Cafés & Strangers</h4>
+            <span class="mood-pill">9 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Borrowed tables, unspoken glances, and the art of belonging nowhere.
+          </p>
+          <div class="text-xs text-[--muted]">Passing • Observational • Urban</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Morning Light</h4>
+            <span class="mood-pill">7 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            First coffee, soft sunlight, and beginnings that feel both new and ancient.
+          </p>
+          <div class="text-xs text-[--muted]">Hopeful • Gentle • Beginning</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Urban Echoes</h4>
+            <span class="mood-pill">11 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            City sounds, forgotten alleys, and conversations overheard on crowded streets.
+          </p>
+          <div class="text-xs text-[--muted]">Urban • Noisy • Alive</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Seasons Turning</h4>
+            <span class="mood-pill">13 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Autumn leaves, spring blossoms, winter silence, summer heat — the wheel turns.
+          </p>
+          <div class="text-xs text-[--muted]">Cyclical • Natural • Change</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Bookish Corners</h4>
+            <span class="mood-pill">8 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Libraries, marginalia, and the smell of old paper in quiet rooms.
+          </p>
+          <div class="text-xs text-[--muted]">Literary • Quiet • Scholarly</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">Coastal Thoughts</h4>
+            <span class="mood-pill">6 pieces</span>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">
+            Sea air, distant horizons, and the rhythm of waves against stone.
+          </p>
+          <div class="text-xs text-[--muted]">Expansive • Salty • Eternal</div>
+        </a>
+
+      </div>
+
+      <!-- Mood Filter -->
+      <div class="bg-[--panel] border border-[--edge] rounded-lg p-6 mb-12">
+        <h3 class="text-xl mb-4" style="color:var(--ink)">Filter by Mood</h3>
+        <div class="flex flex-wrap gap-3">
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">All Moods</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Melancholic</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Reflective</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Hopeful</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Nostalgic</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Quiet</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Wandering</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Intimate</button>
+        </div>
+      </div>
+
+      <!-- Recent Additions -->
+      <div class="mt-12">
+        <h3 class="text-2xl mb-6" style="color:var(--ink)">Recently Added to Themes</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          
+          <div class="bg-[--panel] border border-[--edge] rounded-lg p-6">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h4 class="text-lg text-[--ink]">"Evening Train Windows"</h4>
+                <div class="text-sm text-[--muted]">Added to: Rain & Windows</div>
+              </div>
+              <span class="mood-pill">New</span>
+            </div>
+            <p class="text-gray-300 text-sm">
+              The city passes in streaks of light. My reflection in the glass looks like someone else...
+            </p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xs text-[--muted]">By A. Mori</span>
+              <a href="#" class="text-[--ink] text-sm">Read →</a>
+            </div>
+          </div>
+
+          <div class="bg-[--panel] border border-[--edge] rounded-lg p-6">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h4 class="text-lg text-[--ink]">"Cafe at 3 AM"</h4>
+                <div class="text-sm text-[--muted]">Added to: Quiet Nights</div>
+              </div>
+              <span class="mood-pill">New</span>
+            </div>
+            <p class="text-gray-300 text-sm">
+              The espresso machine sleeps. I am the only customer, writing letters to no one...
+            </p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-xs text-[--muted]">By L. Vega</span>
+              <a href="#" class="text-[--ink] text-sm">Read →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[--edge] text-[--muted] py-16 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 px-6 text-center md:text-left">
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Hitoritabi</h4>
+        <p class="text-sm leading-relaxed">
+          A quiet atlas of words. Leave thoughts on benches made of pixels and passing evenings.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Navigate</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="HomePage.html" class="hover:text-[--ink]">Home</a></li>
+          <li><a href="JournalPage.html" class="hover:text-[--ink]">Journal</a></li>
+          <li><a href="ThemesPage.html" class="hover:text-[--ink]">Themes</a></li>
+          <li><a href="AboutPage.html" class="hover:text-[--ink]">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Popular Themes</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Rain & Windows</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Quiet Nights</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Letters Unsent</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Journeys</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Connect</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Instagram</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Email</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Submissions</a></li>
+          <li><a href="ThemesPage.html" class="hover:text-[--ink]">Browse Themes</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-[--muted] mt-10">
+      © 2025 Hitoritabi — wandering continues between pages.
+    </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Story | Hitoritabi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #d2b48c;
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #f5f5f5; }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+      <a href="/HomePage.html" class="flex items-center gap-2 mr-auto">
+        <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+        <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+      </a>
+      <nav class="flex items-center gap-6 text-lg text-[--muted]">
+        <a href="/HomePage.html" class="hover:text-[--ink]">Home</a>
+        <a href="/themes" class="hover:text-[--ink]">Themes</a>
+        <a href="/WritersPage.html" class="hover:text-[--ink]">Writers</a>
+        <a href="#" onclick="logout()" class="text-[--ink]">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SUBMISSION FORM -->
+  <main class="max-w-2xl mx-auto px-6 py-12">
+    <h1 class="text-3xl mb-6" style="color:var(--ink)">Submit Your Story</h1>
+    
+    <div id="message" class="mb-6 hidden p-4 rounded-lg"></div>
+    
+    <form id="storyForm" class="space-y-6">
+      <div>
+        <label class="block text-[--muted] mb-2">Title</label>
+        <input type="text" name="title" required 
+               class="w-full bg-[--panel] border border-[--edge] rounded-lg p-3 focus:outline-none focus:border-[--ink]">
+      </div>
+      
+      <div>
+        <label class="block text-[--muted] mb-2">Theme</label>
+        <select name="theme" required 
+                class="w-full bg-[--panel] border border-[--edge] rounded-lg p-3 focus:outline-none focus:border-[--ink]">
+          <option value="">Select a theme</option>
+          <option value="Solitude">Solitude</option>
+          <option value="Raindays & Stations">Raindays & Stations</option>
+          <option value="Letters">Letters</option>
+          <option value="Nostalgia">Nostalgia</option>
+          <option value="Quiet Nights">Quiet Nights</option>
+        </select>
+      </div>
+      
+      <div>
+        <label class="block text-[--muted] mb-2">Mood</label>
+        <select name="mood" required 
+                class="w-full bg-[--panel] border border-[--edge] rounded-lg p-3 focus:outline-none focus:border-[--ink]">
+          <option value="">Select a mood</option>
+          <option value="melancholic">Melancholic</option>
+          <option value="rainy">Rainy</option>
+          <option value="quiet">Quiet</option>
+          <option value="intimate">Intimate</option>
+          <option value="reflective">Reflective</option>
+          <option value="wandering">Wandering</option>
+        </select>
+      </div>
+      
+      <div>
+        <label class="block text-[--muted] mb-2">Story Content</label>
+        <textarea name="content" rows="10" required 
+                  class="w-full bg-[--panel] border border-[--edge] rounded-lg p-3 focus:outline-none focus:border-[--ink]"></textarea>
+      </div>
+      
+      <button type="submit" 
+              class="w-full bg-[--ink] text-black py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+        Submit Story
+      </button>
+    </form>
+    
+    <div class="mt-12 pt-8 border-t border-[--edge]">
+      <a href="/HomePage.html" class="text-[--ink] hover:underline">← Back to Home</a>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      fetch('/api/current-user')
+        .then(res => res.json())
+        .then(data => {
+          if (!data.user) {
+            window.location.href = '/LoginPage.html';
+          }
+        });
+        
+      // Handle form submission
+      document.getElementById('storyForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const data = {
+          title: formData.get('title'),
+          theme: formData.get('theme'),
+          mood: formData.get('mood'),
+          content: formData.get('content')
+        };
+        
+        try {
+          const response = await fetch('/api/stories', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          
+          const result = await response.json();
+          
+          const messageDiv = document.getElementById('message');
+          if (result.success) {
+            messageDiv.className = 'mb-6 p-4 rounded-lg bg-green-900/30 text-green-300 border border-green-700';
+            messageDiv.textContent = 'Story submitted successfully!';
+            messageDiv.classList.remove('hidden');
+            
+            // Clear form
+            e.target.reset();
+            
+            // Redirect to the new story after 2 seconds
+            setTimeout(() => {
+              window.location.href = `/story/${result.story.id}`;
+            }, 2000);
+          } else {
+            messageDiv.className = 'mb-6 p-4 rounded-lg bg-red-900/30 text-red-300 border border-red-700';
+            messageDiv.textContent = result.error || 'Failed to submit story';
+            messageDiv.classList.remove('hidden');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          const messageDiv = document.getElementById('message');
+          messageDiv.className = 'mb-6 p-4 rounded-lg bg-red-900/30 text-red-300 border border-red-700';
+          messageDiv.textContent = 'Network error. Please try again.';
+          messageDiv.classList.remove('hidden');
+        }
+      });
+    });
+    
+    async function logout() {
+      await fetch('/api/logout');
+      window.location.href = '/HomePage.html';
+    }
+  </script>
+</body>
+</html>

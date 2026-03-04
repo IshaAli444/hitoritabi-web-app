@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hitoritabi | About</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --ink:#d2b48c; --panel:#2a2a2a; --edge:#3a3a3a; --muted:#bcbcbc; }
+    body{ font-family:'Cormorant Garamond', serif; background:#1f1f1f; color:#f5f5f5; }
+
+    .polaroid { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15)); padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.03); }
+
+    /* timeline */
+    .timeline { position:relative; padding-left:1.25rem; }
+    .timeline::before{ content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background: linear-gradient(180deg,var(--ink), rgba(210,180,140,0.2)); border-radius:2px; opacity:.6; }
+
+    .timeline-item { position:relative; margin-bottom:2.5rem; padding-left:1.5rem; }
+    .timeline-item::before{
+      content:""; position:absolute; left:-.45rem; top:6px; width:12px; height:12px; border-radius:999px; background:var(--ink);
+      box-shadow:0 0 0 4px rgba(210,180,140,0.06);
+    }
+        /* Ink underline hover effect */
+.ink-underline{
+  position:relative;
+}
+.ink-underline::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:0%;
+  height:2px;
+  background:var(--ink);
+  transition:width .25s ease;
+}
+.ink-underline:hover::after{
+  width:100%;
+}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+
+    <!-- LOGO -->
+    <a href="HomePage.html" class="flex items-center gap-2 mr-auto">
+      <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+      <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+    </a>
+
+    <!-- Right Cluster -->
+    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+      <!-- Nav -->
+      <nav class="flex flex-wrap items-center gap-4 sm:gap-6 text-lg text-[--muted]">
+
+        <a href="HomePage.html" class="hover:text-[--ink] ink-underline">Home</a>
+
+        <!-- Journal Menu -->
+         <a href="JournalPage.html" class="hover:text-[--ink] ink-underline">Journal</a>
+
+        <!-- Explore Menu -->
+        <div class="relative group">
+          <a href="#" class="inline-block hover:text-[--ink] ink-underline">Explore ▾</a>
+          <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 absolute left-0 mt-2 w-44 bg-[--panel] border border-[--edge]
+                      rounded-lg shadow-lg p-3 z-[99999]">
+            <a href="WritersPage.html" class="block py-2 hover:text-[--ink]">Writers</a>
+            <a href="ThemesPage.html" class="block py-2 hover:text-[--ink]">Themes</a>
+            <a href="AuthorPage.html" class="block py-2 hover:text-[--ink]"></a>
+          </div>
+        </div>
+
+        <a href="AboutPage.html" class="hover:text-[--ink] ink-underline">About</a>
+
+      </nav>
+
+      <!-- Sign In button -->
+      <a href="LoginPage.html"
+         class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+         border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-black">
+         Sign In
+      </a>
+
+    </div>
+  </div>
+</header>
+
+
+  <!-- About content -->
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <section class="text-center mb-12">
+      <h2 class="text-4xl" style="color:var(--ink)">About Hitoritabi</h2>
+      <p class="text-[--muted] max-w-3xl mx-auto mt-4">
+        Hitoritabi — “solo journey” — began as a small page of private fragments and grew into a gentle platform where anyone may publish brief reflections, traveler notes, and quiet essays. We value brevity, atmosphere, and honest attention.
+      </p>
+    </section>
+
+    <!-- Timeline -->
+    <section class="mb-12">
+      <h3 class="text-2xl mb-4" style="color:var(--ink)">A Short Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="text-sm text-[--muted]">2022</div>
+          <div class="font-semibold">First ink</div>
+          <p class="text-gray-300 mt-2">A personal notebook of fragments that began as a daily small-thing practice.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="text-sm text-[--muted]">2023</div>
+          <div class="font-semibold">First contributors</div>
+          <p class="text-gray-300 mt-2">Invited a few friends; the site became a room with more voices than expected.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="text-sm text-[--muted]">2024</div>
+          <div class="font-semibold">Open to wanderers</div>
+          <p class="text-gray-300 mt-2">Hitoritabi opened up to more contributors and organized small collaborative writing projects.</p>
+        </div>
+
+        <div class="timeline-item">
+  <div class="text-sm text-[--muted]">2025</div>
+  <div class="font-semibold">New Features</div>
+  <p class="text-gray-300 mt-2">Added tagging and mood filters. </p>
+</div>
+
+<div class="timeline-item">
+  <div class="text-sm text-[--muted]">2026 • future</div>
+  <div class="font-semibold">Community Growth</div>
+  <p class="text-gray-300 mt-2">Plans to introduce submission guidelines, tagging, and a small archive feature.</p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+  <h3 class="text-2xl mb-4" style="color:var(--ink)">Our Vision</h3>
+  <p class="text-[--muted] leading-relaxed">Hitoritabi is about noticing the small things — quiet streets, fleeting thoughts, short letters. We aim to provide a space where the delicate and subtle moments of daily life can be shared, read, and remembered. Contributors and readers alike are invited to slow down, reflect, and wander in thought.</p>
+</section>
+
+
+<section class="mb-12">
+  <h3 class="text-2xl mb-4" style="color:var(--ink)">Why Write Here?</h3>
+  <ul class="list-disc pl-5 text-[--muted] space-y-2">
+    <li>Keep a small daily habit of reflection</li>
+    <li>Share moments without pressure of length</li>
+    <li>Connect with a quiet community of writers</li>
+    <li>Receive gentle feedback and encouragement</li>
+  </ul>
+</section>
+
+
+    <!-- Polaroid gallery -->
+    <section class="mb-12">
+      <h3 class="text-2xl mb-4" style="color:var(--ink)">Polaroids from the road</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="polaroid p-4">
+          <img src="images/eveningLampP1.jpg" alt="desk" class="rounded-md object-cover h-48 w-full vignette">
+          <div class="mt-3 text-[--muted] text-sm">An evening desk — ink, a lamp, and a small bowl of tea.</div>
+        </div>
+
+        <div class="polaroid p-4">
+          <img src="images/windowCondensationP2.jpg" alt="train" class="rounded-md object-cover h-48 w-full vignette">
+          <div class="mt-3 text-[--muted] text-sm">Window condensation and the geometry of station maps.</div>
+        </div>
+
+        <div class="polaroid p-4">
+          <img src="images/booksStackedP3.jpg" alt="books" class="rounded-md object-cover h-48 w-full vignette">
+          <div class="mt-3 text-[--muted] text-sm">Books stacked like a small city of borrowed light.</div>
+        </div>
+
+        <div class="polaroid p-4">
+  <img src="images/forestPathP4.jpg" alt="path" class="rounded-md object-cover h-48 w-full vignette">
+  <div class="mt-3 text-[--muted] text-sm">A quiet forest path — footsteps echoing softly.</div>
+</div>
+        <div class="polaroid p-4">
+          <img src="images/cafeWindowP5.jpg" alt="cafe" class="rounded-md object-cover h-48 w-full vignette">
+          <div class="mt-3 text-[--muted] text-sm">A rainy cafe window — reflections and warm light.</div>
+        </div>
+
+        <div class="polaroid p-4">
+          <img src="images/notebookP6.jpg" alt="notebook" class="rounded-md object-cover h-48 w-full vignette">
+          <div class="mt-3 text-[--muted] text-sm">A well-worn notebook — pages filled with quiet thoughts.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Invitation to contribute -->
+    <section class="bg-[--panel] border border-[--edge] rounded-lg p-8">
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <h4 class="text-2xl mb-2" style="color:var(--ink)">Join the journey</h4>
+          <p class="text-[--muted]">Hitoritabi is a place for brief reflections, letters, and small essays. If you write, and your pieces fit the quiet, consider contributing. For now, leave your note and we will respond.</p>
+          <ul class="mt-4 text-gray-300 space-y-2">
+            <li>• Preferred length: 150–1200 words</li>
+            <li>• Tone: reflective, intimate, observational</li>
+            <li>• Format: plain text or markdown (future: upload)</li>
+          </ul>
+        </div>
+
+        <div>
+          <!-- static placeholder for contact form; mentioned future enhancement -->
+          <div class="bg-black/20 border border-[--edge] rounded p-4">
+            <div class="text-[--muted] text-sm mb-4">Submission (placeholder)</div>
+            <div class="text-gray-300 text-sm">
+              For now, please reach out with a formatted email or a GitHub PR. A small submission form will be implemented in later iterations with moderation features.
+            </div>
+            <div class="mt-4">
+              <a href="#" class="inline-block px-4 py-2 border border-[--edge] rounded hover:border-[--ink]">Read guidelines →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[--edge] text-[--muted] py-16 bg-[#1a1a1a]">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 px-6 text-center md:text-left">
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Hitoritabi</h4>
+      <p class="text-sm leading-relaxed">
+        A quiet atlas of words. Leave thoughts on benches made of pixels and passing evenings.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Navigate</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="HomePage.html" class="hover:text-[--ink]">Home</a></li>
+        <li><a href="JournalPage.html" class="hover:text-[--ink]">Journal</a></li>
+        <li><a href="AboutPage.html" class="hover:text-[--ink]">About</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Categories</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="#" class="hover:text-[--ink]">Solitude</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Night Notes</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Rain & Stations</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Connect</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="#" class="hover:text-[--ink]">Instagram</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Email</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Submissions</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="text-center text-xs text-[--muted] mt-10">
+    © 2025 Hitoritabi — wandering continues between pages.
+  </p>
+</footer>
+</body>
+</html>

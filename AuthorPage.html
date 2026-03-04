@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitoritabi | Author</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #d2b48c;
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #f5f5f5; }
+    
+    .ink-underline { position:relative; display:inline-block; }
+    .ink-underline::after{
+      content:""; position:absolute; left:0; bottom:-3px; height:2px; width:0;
+      background: linear-gradient(90deg, rgba(210,180,140,1), rgba(210,180,140,0.6));
+      transition: width .28s ease;
+    }
+    .ink-underline:hover::after{ width:100%; }
+    
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+    .card-hover:hover{ transform: translateY(-8px) rotate(-0.1deg); box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-color: var(--ink); }
+    
+    .mood-pill { font-size:.72rem; padding:.22rem .6rem; border-radius:999px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.03); }
+    
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; }
+    
+    .vignette { box-shadow: inset 0 0 120px rgba(0,0,0,0.6); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+
+    <!-- LOGO -->
+    <a href="HomePage.html" class="flex items-center gap-2 mr-auto">
+      <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+      <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+    </a>
+
+    <!-- Right Cluster -->
+    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+      <!-- Nav -->
+      <nav class="flex flex-wrap items-center gap-4 sm:gap-6 text-lg text-[--muted]">
+
+        <a href="HomePage.html" class="hover:text-[--ink] ink-underline">Home</a>
+
+        <!-- Journal Menu -->
+                  <a href="JournalPage.html" class="hover:text-[--ink] ink-underline">Journal</a>
+      
+
+        <!-- Explore Menu -->
+        <div class="relative group">
+          <a href="#" class="inline-block hover:text-[--ink] ink-underline">Explore ▾</a>
+          <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 absolute left-0 mt-2 w-44 bg-[--panel] border border-[--edge]
+                      rounded-lg shadow-lg p-3 z-[99999]">
+            <a href="WritersPage.html" class="block py-2 hover:text-[--ink]">Writers</a>
+            <a href="ThemesPage.html" class="block py-2 hover:text-[--ink]">Themes</a>
+            <a href="AuthorPage.html" class="block py-2 hover:text-[--ink]"></a>
+          </div>
+        </div>
+
+        <a href="AboutPage.html" class="hover:text-[--ink] ink-underline">About</a>
+
+      </nav>
+
+      <!-- Sign In button -->
+      <a href="LoginPage.html"
+         class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+         border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-black">
+         Sign In
+      </a>
+
+    </div>
+  </div>
+</header>
+
+  <!-- AUTHOR HERO -->
+  <main class="relative z-10">
+    <section class="max-w-4xl mx-auto px-6 py-16">
+      <div class="flex flex-col md:flex-row items-center gap-10 mb-12">
+        <div class="md:w-1/3">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" 
+               alt="A. Mori" 
+               class="w-64 h-64 rounded-full object-cover border-4 border-[--edge] vignette mx-auto">
+        </div>
+        
+        <div class="md:w-2/3">
+          <h2 class="text-4xl mb-3" style="color:var(--ink); font-family:'Playfair Display', serif;">A. Mori</h2>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="mood-pill">Tokyo, Japan</span>
+            <span class="mood-pill">Poet & Translator</span>
+            <span class="mood-pill">Contributor since 2023</span>
+          </div>
+          
+          <p class="text-gray-300 leading-relaxed text-lg">
+            A. Mori writes about the spaces between languages, the quiet of train stations at dawn, 
+            and the fragments of conversations overheard but never completed. Their work examines 
+            translation as both an act of betrayal and an act of love.
+          </p>
+        </div>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="bg-[--panel] border border-[--edge] rounded-lg p-8 mb-12">
+        <h3 class="text-2xl mb-4" style="color:var(--ink)">About the Author</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              Born in Kyoto, raised between Tokyo and Vancouver, A. Mori's writing exists in the liminal space 
+              between cultures. They describe their process as "listening to the silence between words" — 
+              capturing what remains unsaid in conversations, letters, and city sounds.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+              When not writing, Mori works as a literary translator, bringing contemporary Japanese poetry 
+              into English. They believe translation is not about finding equivalents, but about discovering 
+              new rooms in the house of language.
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-xl mb-3 text-[--ink]">Writing Style</h4>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Minimalist, atmospheric prose</li>
+              <li>• Focus on sensory details</li>
+              <li>• Epistolary fragments</li>
+              <li>• Train-of-thought narration</li>
+              <li>• Bilingual wordplay</li>
+            </ul>
+            
+            <div class="mt-6">
+              <h4 class="text-xl mb-3 text-[--ink]">Published Works</h4>
+              <div class="text-gray-300">
+                <p>"Station Letters" (2024) • "Windows Between Languages" (2023) • 
+                "The Last Train Home" (2022, translated)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Works -->
+      <h3 class="text-3xl mb-6" style="color:var(--ink); font-family:'Playfair Display', serif;">Featured Works</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-12">
+        
+        <article class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">"The 5:15 to Shinjuku"</h4>
+            <span class="mood-pill">5 min read</span>
+          </div>
+          <p class="text-gray-300 mb-4">
+            The train rocks gently, a metallic lullaby. Outside, Tokyo dissolves into streaks of light. 
+            I think of all the conversations happening simultaneously in this moving metal box...
+          </p>
+          <a href="#" class="text-[--ink] text-sm">Read full piece →</a>
+        </article>
+
+        <article class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">"Translation as Absence"</h4>
+            <span class="mood-pill">7 min read</span>
+          </div>
+          <p class="text-gray-300 mb-4">
+            Every translation leaves something behind. Not just words, but the space around them — 
+            the breath before speaking, the hesitation that means everything...
+          </p>
+          <a href="#" class="text-[--ink] text-sm">Read full piece →</a>
+        </article>
+
+        <article class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">"Letters to a Ghost"</h4>
+            <span class="mood-pill">4 min read</span>
+          </div>
+          <p class="text-gray-300 mb-4">
+            I write letters I will never send. They accumulate in a drawer like fallen leaves. 
+            Each one addresses someone who exists only in the space between sentences...
+          </p>
+          <a href="#" class="text-[--ink] text-sm">Read full piece →</a>
+        </article>
+
+        <article class="bg-[--panel] border border-[--edge] rounded-lg p-6 card-hover">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xl text-[--ink]">"Cafe Philosophy"</h4>
+            <span class="mood-pill">3 min read</span>
+          </div>
+          <p class="text-gray-300 mb-4">
+            The espresso machine hisses like a tired dragon. At the next table, a woman writes in a notebook. 
+            We are both constructing small worlds from steam and ink...
+          </p>
+          <a href="#" class="text-[--ink] text-sm">Read full piece →</a>
+        </article>
+
+      </div>
+
+      <!-- Other Authors -->
+      <div class="mt-12">
+        <h3 class="text-2xl mb-6" style="color:var(--ink)">Discover More Writers</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+          <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=200&q=60" 
+                 alt="S. Rao" 
+                 class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+            <div class="font-semibold">S. Rao</div>
+            <div class="text-xs text-[--muted]">Essayist • Lahore</div>
+          </a>
+
+          <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+            <img src="https://images.unsplash.com/photo-1531123414780-f3d0f3f2a0e8?auto=format&fit=crop&w=200&q=60" 
+                 alt="L. Vega" 
+                 class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+            <div class="font-semibold">L. Vega</div>
+            <div class="text-xs text-[--muted]">Traveler • Valparaiso</div>
+          </a>
+
+          <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60" 
+                 alt="M. Chen" 
+                 class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+            <div class="font-semibold">M. Chen</div>
+            <div class="text-xs text-[--muted]">Poet • Shanghai</div>
+          </a>
+
+          <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b786d4d9?auto=format&fit=crop&w=200&q=60" 
+                 alt="J. Williams" 
+                 class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+            <div class="font-semibold">J. Williams</div>
+            <div class="text-xs text-[--muted]">Diarist • Edinburgh</div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[--edge] text-[--muted] py-16 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 px-6 text-center md:text-left">
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Hitoritabi</h4>
+        <p class="text-sm leading-relaxed">
+          A quiet atlas of words. Leave thoughts on benches made of pixels and passing evenings.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Navigate</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="HomePage.html" class="hover:text-[--ink]">Home</a></li>
+          <li><a href="JournalPage.html" class="hover:text-[--ink]">Journal</a></li>
+          <li><a href="AuthorPage.html" class="hover:text-[--ink]">Authors</a></li>
+          <li><a href="AboutPage.html" class="hover:text-[--ink]">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Categories</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Solitude</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Night Notes</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Rain & Stations</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Letters</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Connect</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Instagram</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Email</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Submissions</a></li>
+          <li><a href="WritersPage.html" class="hover:text-[--ink]">Writers</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-[--muted] mt-10">
+      © 2025 Hitoritabi — wandering continues between pages.
+    </p>
+  </footer>
+</body>
+</html>

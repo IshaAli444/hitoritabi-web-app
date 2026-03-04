@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitoritabi | Writers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink: #d2b48c;
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #f5f5f5; }
+    
+    .ink-underline { position:relative; display:inline-block; }
+    .ink-underline::after{
+      content:""; position:absolute; left:0; bottom:-3px; height:2px; width:0;
+      background: linear-gradient(90deg, rgba(210,180,140,1), rgba(210,180,140,0.6));
+      transition: width .28s ease;
+    }
+    .ink-underline:hover::after{ width:100%; }
+    
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+    .card-hover:hover{ transform: translateY(-8px) rotate(-0.1deg); box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-color: var(--ink); }
+    
+    .mood-pill { font-size:.72rem; padding:.22rem .6rem; border-radius:999px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.03); }
+    
+    .vignette { box-shadow: inset 0 0 120px rgba(0,0,0,0.6); }
+    
+    .writer-card { transition: all 0.3s ease; }
+    .writer-card:hover { transform: translateY(-4px); border-color: var(--ink); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+
+    <!-- LOGO -->
+    <a href="HomePage.html" class="flex items-center gap-2 mr-auto">
+      <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+      <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+    </a>
+
+    <!-- Right Cluster -->
+    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+      <!-- Nav -->
+      <nav class="flex flex-wrap items-center gap-4 sm:gap-6 text-lg text-[--muted]">
+
+        <a href="HomePage.html" class="hover:text-[--ink] ink-underline">Home</a>
+
+        <!-- Journal Menu -->
+                  <a href="JournalPage.html" class="hover:text-[--ink] ink-underline">Journal</a>
+
+        <!-- Explore Menu -->
+        <div class="relative group">
+          <a href="#" class="inline-block hover:text-[--ink] ink-underline">Explore ▾</a>
+          <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 absolute left-0 mt-2 w-44 bg-[--panel] border border-[--edge]
+                      rounded-lg shadow-lg p-3 z-[99999]">
+            <a href="WritersPage.html" class="block py-2 hover:text-[--ink]">Writers</a>
+            <a href="ThemesPage.html" class="block py-2 hover:text-[--ink]">Themes</a>
+            <a href="AuthorPage.html" class="block py-2 hover:text-[--ink]"></a>
+          </div>
+        </div>
+
+        <a href="AboutPage.html" class="hover:text-[--ink] ink-underline">About</a>
+
+      </nav>
+
+      <!-- Sign In button -->
+      <a href="LoginPage.html"
+         class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+         border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-black">
+         Sign In
+      </a>
+
+    </div>
+  </div>
+</header>
+
+  <!-- WRITERS PAGE -->
+  <main class="relative z-10">
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <!-- Page Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-4xl mb-4" style="color:var(--ink); font-family:'Playfair Display', serif;">Our Writers</h2>
+        <p class="text-[--muted] max-w-3xl mx-auto text-lg">
+          Meet the voices behind Hitoritabi. Each writer brings a unique perspective to quiet moments, 
+          travel notes, and personal reflections.
+        </p>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="bg-[--panel] border border-[--edge] rounded-lg p-6 mb-12">
+        <h3 class="text-xl mb-4" style="color:var(--ink)">Browse by Style</h3>
+        <div class="flex flex-wrap gap-3">
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">All Writers</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Poets</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Essayists</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">Travel Writers</button>
+          <button class="px-4 py-2 rounded-full border border-[--edge] hover:border-[--ink] transition-colors">New Contributors</button>
+        </div>
+      </div>
+
+      <!-- Featured Writers -->
+      <h3 class="text-2xl mb-6" style="color:var(--ink)">Featured Writers</h3>
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        
+        <a href="AuthorPage.html" class="bg-[--panel] border border-[--edge] rounded-lg p-6 writer-card">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" 
+                 alt="A. Mori" 
+                 class="w-16 h-16 rounded-full object-cover vignette">
+            <div>
+              <h4 class="text-xl text-[--ink]">A. Mori</h4>
+              <div class="text-sm text-[--muted]">Tokyo • Poet & Translator</div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm">
+            Writes about the spaces between languages, train stations at dawn, and fragments of conversations.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="mood-pill">Minimalist</span>
+            <span class="mood-pill">Atmospheric</span>
+            <span class="mood-pill">Bilingual</span>
+          </div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 writer-card">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=200&q=60" 
+                 alt="S. Rao" 
+                 class="w-16 h-16 rounded-full object-cover vignette">
+            <div>
+              <h4 class="text-xl text-[--ink]">S. Rao</h4>
+              <div class="text-sm text-[--muted]">Lahore • Essayist</div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm">
+            Collects letters and examines the art of address. Secretly afraid of perfect sentences.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="mood-pill">Epistolary</span>
+            <span class="mood-pill">Reflective</span>
+            <span class="mood-pill">Detailed</span>
+          </div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-6 writer-card">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://images.unsplash.com/photo-1531123414780-f3d0f3f2a0e8?auto=format&fit=crop&w=200&q=60" 
+                 alt="L. Vega" 
+                 class="w-16 h-16 rounded-full object-cover vignette">
+            <div>
+              <h4 class="text-xl text-[--ink]">L. Vega</h4>
+              <div class="text-sm text-[--muted]">Valparaiso • Traveler</div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm">
+            Notes on rooms where light refuses to leave, and journeys that happen while standing still.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="mood-pill">Travel</span>
+            <span class="mood-pill">Visual</span>
+            <span class="mood-pill">Atmospheric</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- All Writers Grid -->
+      <h3 class="text-2xl mb-6" style="color:var(--ink)">All Contributors</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60" 
+               alt="M. Chen" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">M. Chen</div>
+          <div class="text-xs text-[--muted]">Poet • Shanghai</div>
+          <div class="text-xs text-[--muted] mt-1">12 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b786d4d9?auto=format&fit=crop&w=200&q=60" 
+               alt="J. Williams" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">J. Williams</div>
+          <div class="text-xs text-[--muted]">Diarist • Edinburgh</div>
+          <div class="text-xs text-[--muted] mt-1">8 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=60" 
+               alt="K. Tanaka" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">K. Tanaka</div>
+          <div class="text-xs text-[--muted]">Essayist • Osaka</div>
+          <div class="text-xs text-[--muted] mt-1">15 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=60" 
+               alt="E. Schmidt" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">E. Schmidt</div>
+          <div class="text-xs text-[--muted]">Traveler • Berlin</div>
+          <div class="text-xs text-[--muted] mt-1">6 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=60" 
+               alt="R. Patel" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">R. Patel</div>
+          <div class="text-xs text-[--muted]">Poet • Mumbai</div>
+          <div class="text-xs text-[--muted] mt-1">9 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=60" 
+               alt="T. Johnson" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">T. Johnson</div>
+          <div class="text-xs text-[--muted]">Writer • New York</div>
+          <div class="text-xs text-[--muted] mt-1">11 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&q=60" 
+               alt="L. Chen" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">L. Chen</div>
+          <div class="text-xs text-[--muted]">Translator • Taipei</div>
+          <div class="text-xs text-[--muted] mt-1">7 pieces</div>
+        </a>
+
+        <a href="#" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+          <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=200&q=60" 
+               alt="A. Rossi" 
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+          <div class="font-semibold">A. Rossi</div>
+          <div class="text-xs text-[--muted]">Essayist • Rome</div>
+          <div class="text-xs text-[--muted] mt-1">10 pieces</div>
+        </a>
+
+      </div>
+
+      <!-- Join as Writer -->
+      <div class="bg-[--panel] border border-[--edge] rounded-lg p-8 text-center">
+        <h3 class="text-2xl mb-4" style="color:var(--ink)">Want to Join Our Writers?</h3>
+        <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+          We're always looking for new voices who appreciate quiet moments and thoughtful reflection. 
+          If you write short pieces, essays, or poetic fragments, consider contributing.
+        </p>
+        <a href="#" class="inline-block px-6 py-3 border-2 border-[--ink] text-[--ink] rounded-lg hover:bg-[--ink] hover:text-black transition-colors">
+          Learn About Contributing →
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[--edge] text-[--muted] py-16 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 px-6 text-center md:text-left">
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Hitoritabi</h4>
+        <p class="text-sm leading-relaxed">
+          A quiet atlas of words. Leave thoughts on benches made of pixels and passing evenings.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Navigate</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="HomePage.html" class="hover:text-[--ink]">Home</a></li>
+          <li><a href="JournalPage.html" class="hover:text-[--ink]">Journal</a></li>
+          <li><a href="WritersPage.html" class="hover:text-[--ink]">Writers</a></li>
+          <li><a href="AboutPage.html" class="hover:text-[--ink]">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Categories</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Solitude</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Night Notes</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Rain & Stations</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Letters</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-lg mb-3" style="color:var(--ink)">Connect</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-[--ink]">Instagram</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Email</a></li>
+          <li><a href="#" class="hover:text-[--ink]">Submissions</a></li>
+          <li><a href="WritersPage.html" class="hover:text-[--ink]">Writers</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-[--muted] mt-10">
+      © 2025 Hitoritabi — wandering continues between pages.
+    </p>
+  </footer>
+
+// In WritersPage.html, update the JavaScript section at the bottom:
+
+<script>
+  // Load writers dynamically
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/authors')
+      .then(res => res.json())
+      .then(authors => {
+        const container = document.querySelector('#writers-container') || document.querySelector('.grid.md\\:grid-cols-3');
+        if (container) {
+          // For featured writers section
+          const featuredContainer = container.querySelector ? container : document.createElement('div');
+          
+          // Take first 3 authors for featured section
+          const featuredAuthors = authors.slice(0, 3);
+          if (container.classList && container.classList.contains('grid')) {
+            container.innerHTML = featuredAuthors.map(author => `
+              <a href="/author/${author.id}" class="bg-[--panel] border border-[--edge] rounded-lg p-6 writer-card block">
+                <div class="flex items-center gap-4 mb-4">
+                  <img src="${author.image}" 
+                       alt="${author.name}" 
+                       class="w-16 h-16 rounded-full object-cover vignette">
+                  <div>
+                    <h3 class="text-xl text-[--ink]">${author.name}</h3>
+                    <p class="text-[--muted] text-sm">${author.role} • ${author.location}</p>
+                  </div>
+                </div>
+                <p class="text-gray-300 text-sm mb-4">${author.bio}</p>
+                <div class="flex justify-between items-center text-sm text-[--muted]">
+                  <span>${author.storyCount || 0} stories</span>
+                  <span>Joined ${author.joinDate}</span>
+                </div>
+              </a>
+            `).join('');
+          }
+          
+          // Update all contributors grid
+          const contributorsGrid = document.querySelector('.grid.grid-cols-2.md\\:grid-cols-4');
+          if (contributorsGrid) {
+            // Take 8 authors for the grid
+            const gridAuthors = authors.slice(0, 8);
+            contributorsGrid.innerHTML = gridAuthors.map(author => `
+              <a href="/author/${author.id}" class="bg-[--panel] border border-[--edge] rounded-lg p-4 text-center hover:border-[--ink] transition-colors">
+                <img src="${author.image}" 
+                     alt="${author.name}" 
+                     class="w-16 h-16 rounded-full object-cover mx-auto mb-2 vignette">
+                <div class="font-semibold">${author.name}</div>
+                <div class="text-xs text-[--muted]">${author.role} • ${author.location}</div>
+                <div class="text-xs text-[--muted] mt-1">${author.storyCount} pieces</div>
+              </a>
+            `).join('');
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error loading authors:', error);
+      });
+      
+    // Check login status
+    fetch('/api/current-user')
+      .then(res => res.json())
+      .then(data => {
+        if (data.user) {
+          const signInBtn = document.querySelector('a[href="/LoginPage.html"]');
+          if (signInBtn) {
+            signInBtn.textContent = 'Welcome, ' + data.user.username;
+            signInBtn.href = '#';
+            signInBtn.onclick = () => {
+              fetch('/api/logout').then(() => location.reload());
+            };
+          }
+        }
+      });
+  });
+</script>
+</body>
+</html>

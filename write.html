@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Write a Story | Hitoritabi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --ink:#d2b48c; --panel:#2a2a2a; --edge:#3a3a3a; --muted:#bcbcbc; }
+    body{ font-family:'Cormorant Garamond', serif; background: #1f1f1f; color:#f5f5f5; }
+    
+    .ink-underline{ position:relative; }
+    .ink-underline::after{ content:""; position:absolute; left:0; bottom:-2px; width:0%; height:2px; background:var(--ink); transition:width .25s ease; }
+    .ink-underline:hover::after{ width:100%; }
+    
+    /* FIXED: Dropdown styles */
+    .form-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--edge);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      width: 100%;
+      appearance: none; /* Remove default arrow */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d2b48c'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 20px;
+      padding-right: 48px;
+    }
+    
+    /* Style options to be visible */
+    .form-input option {
+      background: #2a2a2a;
+      color: white;
+      padding: 12px;
+    }
+    
+    /* Add to your existing CSS */
+.draft-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--panel);
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+    /* Focus state */
+    .form-input:focus {
+      outline: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 2px rgba(210, 180, 140, 0.1);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--ink) 0%, #b89464 100%);
+      color: #1f1f1f;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(210, 180, 140, 0.2);
+    }
+    
+    .loading-spinner {
+      border: 3px solid rgba(210, 180, 140, 0.1);
+      border-top: 3px solid var(--ink);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .message.success {
+      background: rgba(46, 125, 50, 0.1);
+      border: 1px solid rgba(46, 125, 50, 0.3);
+      color: #81c784;
+      display: block;
+    }
+    
+    .message.error {
+      background: rgba(211, 47, 47, 0.1);
+      border: 1px solid rgba(211, 47, 47, 0.3);
+      color: #e57373;
+      display: block;
+    }
+    
+    /* Draft indicator */
+    .draft-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--panel);
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px rgba(0,0,0,0.45)] backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+      <!-- LOGO -->
+      <a href="HomePage.html" class="flex items-center gap-2 mr-auto">
+        <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+        <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+      </a>
+      
+      <!-- Back link -->
+      <a href="JournalPage.html" class="text-[--muted] hover:text-[--ink] ink-underline">
+        ← Back to Journal
+      </a>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div class="mb-10">
+      <h1 class="text-4xl mb-3" style="color:var(--ink)">Write a Story</h1>
+      <p class="text-[--muted]">Share your wandering thoughts with fellow travelers</p>
+    </div>
+    
+    <!-- Message Area -->
+    <div id="message" class="message"></div>
+    
+    <!-- Draft indicator -->
+    <div id="draft-indicator" class="draft-indicator">
+      <span id="draft-time">Draft saved</span>
+      <button onclick="clearDraft()" class="ml-4 text-sm text-[--ink] hover:underline">Clear</button>
+    </div>
+    
+    <!-- Writing Form -->
+    <form id="story-form" class="space-y-8">
+      <!-- Title -->
+      <div>
+        <label class="block text-[--muted] mb-2 text-lg">Title</label>
+        <input type="text" id="title" name="title" required 
+               class="form-input"
+               placeholder="Give your story a title..."
+               maxlength="100">
+        <div class="text-sm text-gray-400 mt-1" id="title-counter">0/100 characters</div>
+      </div>
+      
+      <!-- Theme & Mood -->
+      <div class="grid md:grid-cols-2 gap-6">
+  <div>
+    <label class="block text-[--muted] mb-2 text-lg">Theme</label>
+    <select id="theme" name="theme" required class="form-input">
+      <option value="">Select a theme...</option>
+      <option value="Rainy Windows">Rainy Windows</option>
+      <option value="Quiet Nights">Quiet Nights</option>
+      <option value="Letters Kept">Letters Kept</option>
+      <option value="Journeys">Journeys</option>
+      <option value="Café Corners">Café Corners</option>
+    </select>
+    <div class="text-sm text-gray-400 mt-1">Choose or it will be "Uncategorized"</div>
+  </div>
+  
+  <div>
+    <label class="block text-[--muted] mb-2 text-lg">Mood</label>
+    <select id="mood" name="mood" required class="form-input">
+      <option value="">Select a mood...</option>
+      <option value="Melancholic">Melancholic</option>
+      <option value="Quiet" selected>Quiet</option>
+      <option value="Reflective">Reflective</option>
+      <option value="Wandering">Wandering</option>
+      <option value="Intimate">Intimate</option>
+      <option value="Rainy">Rainy</option>
+      <option value="Contemplative">Contemplative</option>
+      <option value="Solitary">Solitary</option>
+      <option value="Nostalgic">Nostalgic</option>
+      <option value="Peaceful">Peaceful</option>
+    </select>
+    <div class="text-sm text-gray-400 mt-1">How does your story feel?</div>
+  </div>
+</div>
+      
+      <!-- Optional Image URL -->
+      <div>
+        <label class="block text-[--muted] mb-2 text-lg">Image URL (Optional)</label>
+        <input type="url" id="image" name="image" 
+               class="form-input"
+               placeholder="https://images.unsplash.com/photo-..."
+               value="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=60">
+        <div class="text-sm text-gray-400 mt-1">
+          <a href="https://unsplash.com" target="_blank" class="text-[--ink] hover:underline">Find free images on Unsplash</a> or leave blank for default
+        </div>
+      </div>
+      
+      <!-- Excerpt -->
+      <div>
+        <label class="block text-[--muted] mb-2 text-lg">Short Excerpt</label>
+        <textarea id="excerpt" name="excerpt" rows="3" 
+                  class="form-input"
+                  placeholder="A brief preview of your story (will appear in the journal listing)..."
+                  maxlength="200"></textarea>
+        <div class="text-sm text-gray-400 mt-1" id="excerpt-counter">0/200 characters</div>
+      </div>
+      
+      <!-- Story Content -->
+      <div>
+        <label class="block text-[--muted] mb-2 text-lg">Your Story</label>
+        <textarea id="content" name="content" rows="15" required
+                  class="form-input"
+                  placeholder="Begin your story here..."></textarea>
+        <div class="text-sm text-gray-400 mt-1" id="content-counter">0 words (0 min read)</div>
+      </div>
+      
+      <!-- Submit Buttons -->
+      <div class="flex gap-4 pt-6 border-t border-[--edge]">
+        <button type="submit" id="submit-btn" class="btn-primary px-8">
+          <span id="submit-text">Publish Story</span>
+          <span id="submit-loading" class="hidden">
+            <span class="loading-spinner"></span> Publishing...
+          </span>
+        </button>
+        
+        <button type="button" id="save-draft" class="px-8 py-3 border border-[--edge] rounded-lg hover:border-[--ink] hover:text-[--ink]">
+          Save Draft
+        </button>
+        
+        <a href="JournalPage.html" class="px-8 py-3 border border-[--edge] rounded-lg hover:border-[--ink] hover:text-[--ink] flex items-center">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="border-t border-[--edge] text-[--muted] py-12 bg-[#1a1a1a] mt-16">
+    <div class="max-w-6xl mx-auto text-center px-6">
+      <p class="text-sm">
+        © 2025 Hitoritabi — wandering continues between pages.
+      </p>
+    </div>
+  </footer>
+  
+<script>
+    // DOM Elements
+    const storyForm = document.getElementById('story-form');
+    const messageDiv = document.getElementById('message');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const submitLoading = document.getElementById('submit-loading');
+    const themeSelect = document.getElementById('theme');
+    const moodSelect = document.getElementById('mood');
+    const saveDraftBtn = document.getElementById('save-draft');
+    const draftIndicator = document.getElementById('draft-indicator');
+    const draftTime = document.getElementById('draft-time');
+    
+    // Character counters
+    const titleInput = document.getElementById('title');
+    const excerptInput = document.getElementById('excerpt');
+    const contentInput = document.getElementById('content');
+    const titleCounter = document.getElementById('title-counter');
+    const excerptCounter = document.getElementById('excerpt-counter');
+    const contentCounter = document.getElementById('content-counter');
+    
+    // Load themes from API
+    async function loadThemes() {
+      try {
+        const response = await fetch('/api/themes');
+        const data = await response.json();
+        
+        if (data.success) {
+          // Clear existing options except the first one
+          while (themeSelect.options.length > 1) {
+            themeSelect.remove(1);
+          }
+          
+          // Add theme options
+          data.themes.forEach(theme => {
+            const option = document.createElement('option');
+            option.value = theme.name;
+            option.textContent = theme.name;
+            option.style.backgroundColor = '#2a2a2a';
+            option.style.color = 'white';
+            option.style.padding = '12px';
+            themeSelect.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading themes:', error);
+        // Add some default themes if API fails
+        const defaultThemes = ['Solitude', 'Travel Notes', 'Letters', 'Night Studies', 'Fragments', 'Memory', 'Urban Silence'];
+        defaultThemes.forEach(theme => {
+          const option = document.createElement('option');
+          option.value = theme;
+          option.textContent = theme;
+          option.style.backgroundColor = '#2a2a2a';
+          option.style.color = 'white';
+          themeSelect.appendChild(option);
+        });
+      }
+    }
+    
+    // Update character counters
+    function updateCounters() {
+      titleCounter.textContent = `${titleInput.value.length}/100 characters`;
+      excerptCounter.textContent = `${excerptInput.value.length}/200 characters`;
+      const wordCount = contentInput.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+      const readTime = Math.ceil(wordCount / 200);
+      contentCounter.textContent = `${wordCount} words (${readTime} min read)`;
+    }
+    
+    // Show message
+    function showMessage(text, type) {
+      messageDiv.textContent = text;
+      messageDiv.className = `message ${type}`;
+      messageDiv.style.display = 'block';
+      
+      // Auto-hide success messages after 5 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          messageDiv.style.display = 'none';
+        }, 5000);
+      }
+    }
+    
+    // Save draft to localStorage
+    function saveDraft() {
+      const draft = {
+        title: titleInput.value,
+        content: contentInput.value,
+        theme: themeSelect.value,
+        mood: moodSelect.value,
+        excerpt: excerptInput.value,
+        image: document.getElementById('image').value,
+        savedAt: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+      };
+      
+      console.log('Saving draft:', draft); // Debug log
+      
+      localStorage.setItem('hitoritabi_draft', JSON.stringify(draft));
+      
+      // Show draft indicator
+      if (draftIndicator) {
+        draftTime.textContent = `Draft saved at ${draft.savedAt}`;
+        draftIndicator.style.display = 'block';
+        draftIndicator.style.opacity = '1';
+        
+        console.log('Draft indicator should be visible now'); // Debug log
+        
+        // Auto-hide indicator after 3 seconds with fade effect
+        setTimeout(() => {
+          if (draftIndicator) {
+            draftIndicator.style.opacity = '0';
+            setTimeout(() => {
+              if (draftIndicator) {
+                draftIndicator.style.display = 'none';
+              }
+            }, 300);
+          }
+        }, 3000);
+      } else {
+        console.error('Draft indicator element not found!');
+      }
+    }
+    
+    // Load draft from localStorage
+    function loadDraft() {
+      const draft = localStorage.getItem('hitoritabi_draft');
+      if (draft) {
+        try {
+          const draftData = JSON.parse(draft);
+          
+          // Ask user if they want to load the draft
+          if (confirm(`Load draft saved at ${draftData.savedAt}?\n\nTitle: ${draftData.title || '(Untitled)'}`)) {
+            titleInput.value = draftData.title || '';
+            contentInput.value = draftData.content || '';
+            themeSelect.value = draftData.theme || '';
+            moodSelect.value = draftData.mood || '';
+            excerptInput.value = draftData.excerpt || '';
+            document.getElementById('image').value = draftData.image || '';
+            updateCounters();
+            
+            showMessage('Draft loaded from local storage', 'success');
+          }
+        } catch (error) {
+          console.error('Error loading draft:', error);
+        }
+      }
+    }
+    
+    // Clear draft
+    function clearDraft() {
+      if (confirm('Clear saved draft?')) {
+        localStorage.removeItem('hitoritabi_draft');
+        if (draftIndicator) {
+          draftIndicator.style.display = 'none';
+        }
+        showMessage('Draft cleared', 'success');
+      }
+    }
+    
+    // Show draft indicator when page loads if draft exists
+    function showDraftIndicatorOnLoad() {
+      const draft = localStorage.getItem('hitoritabi_draft');
+      if (draft && draftIndicator) {
+        try {
+          const draftData = JSON.parse(draft);
+          draftTime.textContent = `Draft saved at ${draftData.savedAt}`;
+          draftIndicator.style.display = 'block';
+          
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            if (draftIndicator) {
+              draftIndicator.style.opacity = '0';
+              setTimeout(() => {
+                if (draftIndicator) {
+                  draftIndicator.style.display = 'none';
+                }
+              }, 300);
+            }
+          }, 5000);
+        } catch (error) {
+          console.error('Error showing draft indicator:', error);
+        }
+      }
+    }
+    
+    // Auto-save draft every 30 seconds
+    let autoSaveInterval;
+    function startAutoSave() {
+      autoSaveInterval = setInterval(() => {
+        if (titleInput.value.trim() || contentInput.value.trim()) {
+          console.log('Auto-saving draft...'); // Debug log
+          saveDraft();
+        }
+      }, 30000); // 30 seconds
+    }
+    
+    // Form submission
+    storyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Show loading
+      submitText.classList.add('hidden');
+      submitLoading.classList.remove('hidden');
+      submitBtn.disabled = true;
+      
+      // Get form data
+      const storyData = {
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        theme: themeSelect.value,
+        mood: moodSelect.value,
+        excerpt: excerptInput.value.trim(),
+        image: document.getElementById('image').value.trim() || undefined
+      };
+      
+      // Validate
+      if (!storyData.title || !storyData.content) {
+        showMessage('Title and story content are required', 'error');
+        submitText.classList.remove('hidden');
+        submitLoading.classList.add('hidden');
+        submitBtn.disabled = false;
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/stories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(storyData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Clear draft after successful submission
+          localStorage.removeItem('hitoritabi_draft');
+          clearInterval(autoSaveInterval);
+          
+          // Hide draft indicator
+          if (draftIndicator) {
+            draftIndicator.style.display = 'none';
+          }
+          
+          showMessage('🎉 Story published successfully! Redirecting to journal...', 'success');
+          
+          // Redirect to journal after 2 seconds
+          setTimeout(() => {
+            window.location.href = 'JournalPage.html';
+          }, 2000);
+        } else {
+          showMessage(result.error || 'Failed to publish story', 'error');
+          submitText.classList.remove('hidden');
+          submitLoading.classList.add('hidden');
+          submitBtn.disabled = false;
+        }
+      } catch (error) {
+        console.error('Error submitting story:', error);
+        showMessage('Network error. Please check your connection.', 'error');
+        submitText.classList.remove('hidden');
+        submitLoading.classList.add('hidden');
+        submitBtn.disabled = false;
+      }
+    });
+    
+    // Manual draft save button
+    saveDraftBtn.addEventListener('click', () => {
+      console.log('Manual save draft clicked'); // Debug log
+      saveDraft();
+      showMessage('Draft saved locally!', 'success');
+    });
+    
+    // Add event listener to the "Clear" button in draft indicator
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#draft-indicator button')) {
+        clearDraft();
+      }
+    });
+    
+    // Check if user is logged in
+    async function checkAuth() {
+      try {
+        const response = await fetch('/api/current-user');
+        const data = await response.json();
+        
+        if (!data.user) {
+          // Redirect to login if not logged in
+          window.location.href = 'LoginPage.html?redirect=write.html';
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        window.location.href = 'LoginPage.html?redirect=write.html';
+      }
+    }
+    
+    // Initialize
+    window.addEventListener('DOMContentLoaded', async () => {
+      console.log('DOM loaded, initializing...'); // Debug log
+      
+      // Check if draft indicator element exists
+      if (!draftIndicator) {
+        console.error('Draft indicator element not found in DOM!');
+        // Create it dynamically if missing
+        const indicator = document.createElement('div');
+        indicator.id = 'draft-indicator';
+        indicator.className = 'draft-indicator';
+        indicator.innerHTML = `
+          <span id="draft-time">Draft saved</span>
+          <button class="ml-4 text-sm text-[--ink] hover:underline">Clear</button>
+        `;
+        document.body.appendChild(indicator);
+      }
+      
+      await checkAuth();
+      await loadThemes();
+      showDraftIndicatorOnLoad(); // Show indicator if draft exists
+      loadDraft(); // Optional - keeps the prompt
+      startAutoSave();
+      
+      // Set up character counters
+      titleInput.addEventListener('input', updateCounters);
+      excerptInput.addEventListener('input', updateCounters);
+      contentInput.addEventListener('input', updateCounters);
+      updateCounters();
+      
+      // Auto-generate excerpt if empty
+      contentInput.addEventListener('blur', () => {
+        if (!excerptInput.value.trim() && contentInput.value.trim()) {
+          const firstParagraph = contentInput.value.trim().split('\n\n')[0];
+          if (firstParagraph && firstParagraph.length > 50) {
+            excerptInput.value = firstParagraph.substring(0, 150) + '...';
+            updateCounters();
+          }
+        }
+      });
+      
+      // Warn before leaving with unsaved changes
+      window.addEventListener('beforeunload', (e) => {
+        if (titleInput.value.trim() || contentInput.value.trim()) {
+          e.preventDefault();
+          e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        }
+      });
+      
+      // Add a test button for debugging
+      const testButton = document.createElement('button');
+      testButton.textContent = 'Test Save';
+      testButton.style.position = 'fixed';
+      testButton.style.bottom = '20px';
+      testButton.style.left = '20px';
+      testButton.style.background = 'red';
+      testButton.style.color = 'white';
+      testButton.style.padding = '10px';
+      testButton.style.zIndex = '9999';
+      testButton.onclick = () => {
+        console.log('Test button clicked');
+        saveDraft();
+      };
+      document.body.appendChild(testButton);
+    });
+</script>
+</body>
+</html>

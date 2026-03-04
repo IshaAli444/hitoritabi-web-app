@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitoritabi | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink: #d2b48c; /* golden ink accent */
+      --bg: #1f1f1f;
+      --panel: #2a2a2a;
+      --edge: #3a3a3a;
+      --muted: #bcbcbc;
+    }
+
+    body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: #f5f5f5; }
+
+    /* Subtle grain overlay */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);
+      background-size: 3px 3px;
+      pointer-events:none; z-index:0;
+      mix-blend-mode: overlay; opacity: .3;
+    }
+
+    /* Soft card lift */
+    .card-hover { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+    .card-hover:hover{ transform: translateY(-8px) rotate(-0.1deg); box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-color: var(--ink); }
+
+    /* Golden underline on links */
+    .ink-underline { position:relative; display:inline-block; }
+    .ink-underline::after{
+      content:""; position:absolute; left:0; bottom:-3px; height:2px; width:0;
+      background: linear-gradient(90deg, rgba(210,180,140,1), rgba(210,180,140,0.6));
+      transition: width .28s ease;
+    }
+    .ink-underline:hover::after{ width:100%; }
+
+    /* CSS-only dropdown nav */
+    .nav-group:hover .nav-menu {
+        opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+    }
+
+    header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+    .nav-menu{
+      opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events: none;
+  z-index: 100;
+    }
+
+    /* Quote carousel (fade) */
+    .quoteshare {  position: relative;
+  height: 6.5rem; /* more vertical room */
+  line-height: 1.5;
+  padding-inline: 1.5rem;
+  overflow: hidden;
+  max-width: 420px; /* widened without stretching too far */
+  margin-top: 1rem; }
+    .quoteshare blockquote{
+      position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fadequotes 16s infinite;
+  text-align: center;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #d5d5d5;
+    }
+    .quoteshare blockquote:nth-child(1){ animation-delay: 0s; }
+    .quoteshare blockquote:nth-child(2){ animation-delay: 4s; }
+    .quoteshare blockquote:nth-child(3){ animation-delay: 8s; }
+    .quoteshare blockquote:nth-child(4){ animation-delay: 12s; }
+
+    @keyframes fadequotes {
+      0% { opacity:0; transform:translateY(8px) scale(.99); }
+      6% { opacity:1; transform:translateY(0) scale(1); }
+      24% { opacity:1; transform:translateY(0) scale(1); }
+      30% { opacity:0; transform:translateY(-8px) scale(.99); }
+      100% { opacity:0; }
+    }
+
+    /* Small decorative divider */
+    .flourish { width:64px; height:2px; background:linear-gradient(90deg,var(--ink), rgba(210,180,140,0.4)); margin: 0 auto; border-radius: 4px; }
+
+    /* Mood pill */
+    .mood-pill { font-size:.72rem; padding:.22rem .6rem; border-radius:999px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.03); }
+
+    /* subtle image vignette */
+    .vignette { box-shadow: inset 0 0 120px rgba(0,0,0,0.6); }
+    .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVBAR -->
+  <header class="bg-[--panel] border-b border-[--edge] sticky top-0 z-[9999] shadow-[0_6px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center gap-8">
+
+    <!-- LOGO -->
+    <a href="/" class="flex items-center gap-2 mr-auto">
+      <h1 class="text-3xl font-semibold tracking-wide" style="color:var(--ink)">Hitoritabi</h1>
+      <span class="text-sm text-[--muted] italic hidden sm:block">— stations of thought</span>
+    </a>
+
+    <!-- Right Cluster -->
+    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+
+      <!-- Nav -->
+      <nav class="flex flex-wrap items-center gap-4 sm:gap-6 text-lg text-[--muted]">
+
+        <a href="/" class="hover:text-[--ink] ink-underline">Home</a>
+
+        <!-- Journal Menu -->
+         <a href="JournalPage.html" class="hover:text-[--ink] ink-underline">Journal</a>
+
+        <!-- Explore Menu -->
+        <div class="relative group">
+          <a href="#" class="inline-block hover:text-[--ink] ink-underline">Explore ▾</a>
+          <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 absolute left-0 mt-2 w-44 bg-[--panel] border border-[--edge]
+                      rounded-lg shadow-lg p-3 z-[99999]">
+            <a href="/WritersPage.html" class="block py-2 hover:text-[--ink]">Writers</a>
+            <a href="/themes" class="block py-2 hover:text-[--ink]">Themes</a>
+            <a href="/LoginPage.html" class="block py-2 hover:text-[--ink]">Login</a>
+          </div>
+        </div>
+
+        <a href="/AboutPage.html" class="hover:text-[--ink] ink-underline">About</a>
+
+      </nav>
+
+      <!-- Sign In button -->
+      <!-- Replace the Sign In button with this dynamic button: -->
+<div id="auth-button">
+  <!-- Will be populated by JavaScript -->
+  <a href="/LoginPage.html"
+     class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+     border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-black">
+     Sign In
+  </a>
+</div>
+
+    </div>
+  </div>
+</header>
+
+  <!-- HERO -->
+  <main class="relative z-10">
+    <section class="text-center py-20 border-b-2 border-t-0 border-[#3a3a3a] border-double"
+         style="background:
+           radial-gradient(circle at center, #2d2d2d 0%, #1e1e1e 60%, #151515 100%);">
+
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-5xl mb-4" style="color:var(--ink); font-family:'Playfair Display', serif;">The Journey Within</h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          Rooms of paper, empty seats on trains, and the hush between sentences. Hitoritabi opens a place where wanderers leave their small confessions and strangers become readers.
+        </p>
+
+        <!-- Midnight Highlights (CSS carousel) -->
+        <div class="mt-8 max-w-2xl mx-auto">
+          <div class="bg-[--panel] border border-[--edge] rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-[--muted]">Midnight Highlights</p>
+                <div class="quoteshare mt-2 text-gray-300 w-[480px]">
+                  <blockquote>“Even joy, when held too tightly, begins to echo like grief.”</blockquote>
+                  <blockquote>“Letting go; where love and loss collide.”</blockquote>
+                  <blockquote>“The best letters are the ones you never send; they still teach you how to say goodbye.”</blockquote>
+                  <blockquote>“They deem me insane, knowing the truth is mine.”</blockquote>
+                </div>
+              </div>
+              <div class="relative flex items-center justify-center w-32 h-32">
+
+  <!-- Letter image (behind & more visible on the left) -->
+  <img src="images/letter.png"
+       alt="Letter"
+       class="absolute w-32 h-32 object-cover rounded-sm opacity-85
+              -rotate-3 -left-12 top-2 
+              z-0
+              hover:opacity-100 transition-all duration-300">
+
+  <!-- Polaroid photo (front layer) -->
+  <img src="images/station-polaroid.jpg"
+       alt="Polaroid"
+       class="absolute w-24 h-28 object-cover rounded-sm opacity-90
+              rotate-2 right-0 top-3 border-[#696969]
+              shadow-[0_0_6px_rgba(0,0,0,0.6)]
+              z-10
+              hover:opacity-100 transition-all duration-300">
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOOD GALLERY -->
+     <section class="max-w-6xl mx-auto px-6 mt-20 relative">
+  <h3 class="text-2xl mb-3" style="color:var(--ink)">Pick a Mood</h3>
+  <p class="text-[--muted] mb-4">Let the night choose your direction.</p>
+
+  <div class="relative">
+    <!-- Left Button Placeholder -->
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 bg-[--panel] border border-[--edge] rounded-full w-10 h-10 flex items-center justify-center z-10 cursor-pointer hover:bg-[--edge] transition-colors left-arrow">
+      &#8592;
+    </div>
+
+    <!-- Right Button Placeholder -->
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 bg-[--panel] border border-[--edge] rounded-full w-10 h-10 flex items-center justify-center z-10 cursor-pointer hover:bg-[--edge] transition-colors right-arrow">
+      &#8594;
+    </div>
+
+    <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory no-scrollbar scroll-smooth mood-gallery">
+      <!-- Mood Items -->
+      <div class="min-w-[280px] snap-start bg-[--panel] border border-[--edge] rounded-lg p-3 text-center cursor-pointer hover:scale-105 hover:shadow-lg transition-transform duration-200 mood-item">
+        <img src="images/mood_rain.jpg" class="w-full h-32 object-cover rounded-md mb-2" alt="Rainy Windows">
+        <p class="text-sm text-[--muted]">Rainy Windows</p>
+      </div>
+
+      <div class="min-w-[280px] snap-start bg-[--panel] border border-[--edge] rounded-lg p-3 text-center cursor-pointer hover:scale-105 hover:shadow-lg transition-transform duration-200 mood-item">
+        <img src="images/mood_quiet.jpg" class="w-full h-32 object-cover rounded-md mb-2" alt="Quiet Nights">
+        <p class="text-sm text-[--muted]">Quiet Nights</p>
+      </div>
+
+      <div class="min-w-[280px] snap-start bg-[--panel] border border-[--edge] rounded-lg p-3 text-center cursor-pointer hover:scale-105 hover:shadow-lg transition-transform duration-200 mood-item">
+        <img src="images/mood_letters.jpg" class="w-full h-32 object-cover rounded-md mb-2" alt="Letters Kept">
+        <p class="text-sm text-[--muted]">Letters Kept</p>
+      </div>
+
+      <div class="min-w-[280px] snap-start bg-[--panel] border border-[--edge] rounded-lg p-3 text-center cursor-pointer hover:scale-105 hover:shadow-lg transition-transform duration-200 mood-item">
+        <img src="images/mood_stations.jpg" class="w-full h-32 object-cover rounded-md mb-2" alt="Journeys">
+        <p class="text-sm text-[--muted]">Journeys</p>
+      </div>
+
+      <div class="min-w-[280px] snap-start bg-[--panel] border border-[--edge] rounded-lg p-3 text-center cursor-pointer hover:scale-105 hover:shadow-lg transition-transform duration-200 mood-item">
+        <img src="images/mood_cafe.jpg" class="w-full h-32 object-cover rounded-md mb-2" alt="Café Corners">
+        <p class="text-sm text-[--muted]">Café Corners</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- FEATURED STORY -->
+     <section class="max-w-3xl mx-auto mt-16 px-6" id="featured-story">
+  <h3 class="text-2xl mb-4" style="color:var(--ink)">Featured Story</h3>
+
+  <div class="bg-[--panel] border border-[--edge] rounded-lg p-6">
+    <div id="featured-story-content">
+      <!-- Content will be loaded dynamically -->
+      <p class="text-[--muted]">Loading featured story...</p>
+    </div>
+  </div>
+</section>
+
+    <!-- WHY WE WRITE (manifesto) -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h3 class="text-3xl mb-3" style="color:var(--ink);">Why We Write</h3>
+          <div class="flourish mb-6"></div>
+          <p class="text-gray-300 leading-relaxed mb-4">
+            Words are small journeys. We write to map the interior towns we visit privately — to leave notes on benches for future selves and strangers. Hitoritabi is a shared room where any writer may place those notes.
+          </p>
+          <ul class="text-[--muted] space-y-2">
+            <li>• To remember the places that taught us to feel.</li>
+            <li>• To carve soft bridges between readers and strangers.</li>
+            <li>• To practice noticing the small, stubborn details.</li>
+          </ul>
+        </div>
+
+        <div>
+          <!-- Meet the Wanderers -->
+          <h4 class="text-xl mb-3 text-[--ink]">Meet the Wanderers</h4>
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Contributor cards -->
+            <a href="/author/1" class="block">
+              <figure class="bg-[--panel] rounded-lg p-4 border border-[--edge] card-hover h-full">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=60" alt="wanderer" class="w-12 h-12 rounded-full object-cover vignette">
+                  <div>
+                    <div class="font-semibold">A. Mori</div>
+                    <div class="text-xs text-[--muted]">Tokyo • poet</div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-gray-300 mt-3">Writes short nocturnes about trains and translation.</figcaption>
+              </figure>
+            </a>
+
+            <a href="/author/2" class="block">
+              <figure class="bg-[--panel] rounded-lg p-4 border border-[--edge] card-hover h-full">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=200&q=60" alt="wanderer" class="w-12 h-12 rounded-full object-cover vignette">
+                  <div>
+                    <div class="font-semibold">S. Rao</div>
+                    <div class="text-xs text-[--muted]">Lahore • essayist</div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-gray-300 mt-3">Collects letters and is secretly afraid of perfect sentences.</figcaption>
+              </figure>
+            </a>
+
+            <a href="/author/3" class="block">
+              <figure class="bg-[--panel] rounded-lg p-4 border border-[--edge] card-hover h-full">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1531123414780-f3d0f3f2a0e8?auto=format&fit=crop&w=200&q=60" alt="wanderer" class="w-12 h-12 rounded-full object-cover vignette">
+                  <div>
+                    <div class="font-semibold">L. Vega</div>
+                    <div class="text-xs text-[--muted]">Valparaiso • traveler</div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-gray-300 mt-3">Notes on rooms where light refuses to leave.</figcaption>
+              </figure>
+            </a>
+
+            <a href="/LoginPage.html" class="block">
+              <figure class="bg-[--panel] rounded-lg p-4 border border-[--edge] card-hover h-full">
+                <div class="flex items-center gap-3">
+                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60" alt="wanderer" class="w-12 h-12 rounded-full object-cover vignette">
+                  <div>
+                    <div class="font-semibold">You?</div>
+                    <div class="text-xs text-[--muted]">Submit • contribute</div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-gray-300 mt-3">A space for anyone who arrives with a notebook and a quiet intent.</figcaption>
+              </figure>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Themes (category cards) -->
+    <section class="max-w-6xl mx-auto px-6 pb-16">
+  <h3 class="text-3xl text-center mb-6" style="color:var(--ink)">Latest Themes</h3>
+  <p class="text-center text-[--muted] mb-8">Navigate the rooms — each theme is a small portal into a set of moods and micro-essays.</p>
+
+  <div id="themes-container" class="grid md:grid-cols-3 gap-8">
+    <!-- Themes will be loaded dynamically here -->
+  </div>
+</section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[--edge] text-[--muted] py-16 bg-[#1a1a1a]">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10 px-6 text-center md:text-left">
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Hitoritabi</h4>
+      <p class="text-sm leading-relaxed">
+        A quiet atlas of words. Leave thoughts on benches made of pixels and passing evenings.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Navigate</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="/" class="hover:text-[--ink]">Home</a></li>
+        <li><a href="/JournalPage.html" class="hover:text-[--ink]">Journal</a></li>
+        <li><a href="/themes" class="hover:text-[--ink]">Themes</a></li>
+        <li><a href="/WritersPage.html" class="hover:text-[--ink]">Writers</a></li>
+        <li><a href="/AboutPage.html" class="hover:text-[--ink]">About</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Categories</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="/themes/solitude" class="hover:text-[--ink]">Solitude</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Night Notes</a></li>
+        <li><a href="/themes/raindays-stations" class="hover:text-[--ink]">Rain & Stations</a></li>
+        <li><a href="/themes/letters" class="hover:text-[--ink]">Letters</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg mb-3" style="color:var(--ink)">Connect</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="#" class="hover:text-[--ink]">Instagram</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Email</a></li>
+        <li><a href="/LoginPage.html" class="hover:text-[--ink]">Login / Register</a></li>
+        <li><a href="#" class="hover:text-[--ink]">Submissions</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="text-center text-xs text-[--muted] mt-10">
+    © 2025 Hitoritabi — wandering continues between pages.
+  </p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('🏠 Homepage loaded - initializing...');
+    
+    // Initialize everything
+    initializeNavigationArrows();
+    loadFeaturedStory();
+    loadThemes();
+    setupMoodClickHandlers();
+    checkLoginStatus();
+    
+    console.log('✅ Homepage initialized successfully');
+  });
+  
+  // Function to initialize navigation arrows
+  function initializeNavigationArrows() {
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
+    const moodGallery = document.querySelector('.mood-gallery');
+    
+    if (leftArrow && moodGallery) {
+      leftArrow.addEventListener('click', () => {
+        moodGallery.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+    }
+    
+    if (rightArrow && moodGallery) {
+      rightArrow.addEventListener('click', () => {
+        moodGallery.scrollBy({ left: 300, behavior: 'smooth' });
+      });
+    }
+    
+    console.log('✅ Navigation arrows initialized');
+  }
+  
+  // Function to load featured story
+  async function loadFeaturedStory() {
+    try {
+      console.log('📖 Loading featured story...');
+      
+      // First try the featured endpoint
+      let response = await fetch('/api/stories/featured');
+      
+      // If featured endpoint doesn't exist, fall back to first story
+      if (!response.ok) {
+        console.log('⚠️  /api/stories/featured not found, using first story');
+        response = await fetch('/api/stories');
+        const stories = await response.json();
+        if (stories && stories.length > 0) {
+          displayFeaturedStory(stories[0]);
+          return;
+        }
+      } else {
+        const story = await response.json();
+        displayFeaturedStory(story);
+      }
+    } catch (error) {
+      console.error('❌ Error loading featured story:', error);
+      showErrorMessage('featured-story-content', 'Unable to load featured story. Please try again later.');
+    }
+  }
+  
+  // Function to display featured story
+  function displayFeaturedStory(story) {
+    const featuredSection = document.getElementById('featured-story-content');
+    if (!featuredSection) return;
+    
+    if (story && story.title) {
+      featuredSection.innerHTML = `
+        <h4 class="text-xl mb-2" style="color:var(--ink)">${story.title}</h4>
+        <p class="text-[--muted] leading-relaxed mb-4">${story.content ? story.content.substring(0, 300) + '...' : 'No content available'}</p>
+        <div class="flex justify-between items-center">
+          <span class="text-sm text-[--muted]">${story.author || 'Unknown author'} • ${story.readTime || '?'} min read • ${story.theme || 'Uncategorized'}</span>
+          <a href="/story/${story.id}" class="text-sm underline" style="color:var(--ink)">
+            Continue reading →
+          </a>
+        </div>
+      `;
+      console.log(`✅ Featured story loaded: "${story.title}"`);
+    } else {
+      featuredSection.innerHTML = `
+        <p class="text-[--muted]">No stories available yet.</p>
+        <a href="/LoginPage.html" class="text-sm underline mt-2" style="color:var(--ink)">
+          Be the first to write →
+        </a>
+      `;
+    }
+  }
+  
+  // Function to setup mood click handlers
+  function setupMoodClickHandlers() {
+    const moodItems = document.querySelectorAll('.mood-item');
+    
+    moodItems.forEach(item => {
+      item.addEventListener('click', async function() {
+        const moodText = this.querySelector('p').textContent.toLowerCase().trim();
+        console.log(`🎭 Mood selected: "${moodText}"`);
+        
+        // Show loading state
+        const featuredSection = document.getElementById('featured-story-content');
+        if (featuredSection) {
+          featuredSection.innerHTML = `<p class="text-[--muted]">Loading "${moodText}" stories...</p>`;
+        }
+        
+        try {
+          // Map display text to API mood values
+          const moodMap = {
+            'rainy windows': 'rainy',
+            'quiet nights': 'quiet',
+            'letters kept': 'letters',
+            'journeys': 'journeys',
+            'café corners': 'café corners'
+          };
+          
+          const apiMood = moodMap[moodText] || moodText;
+          const response = await fetch(`/api/stories/mood/${encodeURIComponent(apiMood)}`);
+          
+          if (!response.ok) {
+            throw new Error(`API returned ${response.status}`);
+          }
+          
+          const stories = await response.json();
+          
+          if (stories && stories.length > 0) {
+            displayFeaturedStory(stories[0]);
+            console.log(`✅ Loaded ${stories.length} stories for mood: "${moodText}"`);
+          } else {
+            if (featuredSection) {
+              featuredSection.innerHTML = `
+                <p class="text-[--muted]">No stories found for "${moodText}" yet.</p>
+                <a href="/themes" class="text-sm underline mt-2" style="color:var(--ink)">
+                  Browse all themes →
+                </a>
+              `;
+            }
+          }
+        } catch (error) {
+          console.error(`❌ Error loading "${moodText}" stories:`, error);
+          if (featuredSection) {
+            featuredSection.innerHTML = `
+              <p class="text-[--muted]">Error loading "${moodText}" stories.</p>
+              <p class="text-xs text-[--muted]">The server might not have this mood endpoint yet.</p>
+            `;
+          }
+        }
+      });
+    });
+    
+    console.log(`✅ Mood click handlers added to ${moodItems.length} items`);
+  }
+  
+  // Function to load themes
+  async function loadThemes() {
+    try {
+      console.log('🎨 Loading themes...');
+      const response = await fetch('/api/themes');
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
+      
+      const themes = await response.json();
+      displayThemes(themes);
+    } catch (error) {
+      console.error('❌ Error loading themes:', error);
+      showErrorMessage('themes-container', 'Unable to load themes. Please check your connection.');
+    }
+  }
+  
+  // Function to display themes
+  function displayThemes(themes) {
+    const themesContainer = document.getElementById('themes-container');
+    if (!themesContainer) return;
+    
+    if (themes && themes.length > 0) {
+      // Take first 6 themes
+      const displayThemes = themes.slice(0, 6);
+      
+      themesContainer.innerHTML = displayThemes.map(theme => `
+        <a href="/themes" class="block bg-[--panel] rounded-lg p-6 border border-[--edge] card-hover">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-2xl" style="color:${theme.color || 'var(--ink)'}">${theme.name}</h4>
+              <p class="text-[--muted] mt-2">${theme.description || 'No description available'}</p>
+            </div>
+            <div class="mood-pill text-[--muted]">${theme.mood || 'Unknown'} • ${theme.entryCount || 0}</div>
+          </div>
+        </a>
+      `).join('');
+      
+      console.log(`✅ Displayed ${displayThemes.length} themes`);
+    } else {
+      themesContainer.innerHTML = `
+        <div class="col-span-3 text-center py-8">
+          <p class="text-[--muted]">No themes available yet.</p>
+          <a href="/LoginPage.html" class="text-sm underline mt-2 inline-block" style="color:var(--ink)">
+            Create your own theme →
+          </a>
+        </div>
+      `;
+    }
+  }
+  
+  // Function to check login status
+  // Function to check login status
+async function checkLoginStatus() {
+  try {
+    const response = await fetch('/api/current-user');
+    const data = await response.json();
+    
+    const authButton = document.getElementById('auth-button');
+    if (!authButton) return;
+    
+    if (data.user) {
+      authButton.innerHTML = `
+        <div class="flex items-center gap-4">
+          <a href="/profile" 
+             class="text-[--ink] hover:underline text-sm">
+            My Profile
+          </a>
+          <button onclick="logout()"
+             class="px-5 py-2 rounded-lg text-sm font-medium border-2 transition-all duration-200
+             border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+            Logout
+          </button>
+        </div>
+      `;
+      console.log(`✅ User logged in: ${data.user.username}`);
+    }
+  } catch (error) {
+    console.log('ℹ️  No user logged in or auth not configured');
+  }
+}
+
+// Add logout function
+async function logout() {
+  await fetch('/api/logout');
+  location.reload();
+}
+  
+  // Utility function to show error messages
+  function showErrorMessage(elementId, message) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.innerHTML = `<p class="text-[--muted]">${message}</p>`;
+    }
+  }
+  
+  // Quick test of all APIs
+  async function testAllAPIs() {
+    console.log('🧪 Testing API connections...');
+    
+    const apis = [
+      { url: '/api/themes', name: 'Themes API' },
+      { url: '/api/stories', name: 'Stories API' },
+      { url: '/api/authors', name: 'Authors API' }
+    ];
+    
+    for (const api of apis) {
+      try {
+        const response = await fetch(api.url);
+        const data = await response.json();
+        console.log(`✅ ${api.name}: ${Array.isArray(data) ? data.length + ' items' : 'Connected'}`);
+      } catch (error) {
+        console.log(`❌ ${api.name}: ${error.message}`);
+      }
+    }
+  }
+  
+  // Run API test in background
+  setTimeout(testAllAPIs, 1000);
+</script>
+</body>
+</html>
